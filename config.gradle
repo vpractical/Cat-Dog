@@ -1,0 +1,49 @@
+ext{
+
+    baseUrl = [
+            debugUrl   : '"www.baidu.com"',
+            releaseUrl : '"www.baidu.com"',
+    ]
+
+    android = [
+            applicationId     : "com.y.cat_dog",
+            compileSdkVersion : 27,
+            minSdkVersion     : 21,
+            targetSdkVersion  : 27,
+            versionCode       : project.VERSION_CODE as int,
+            versionName       : project.VERSION_NAME,
+    ]
+
+
+    libsVersion = [
+            libraryVersion = "27.1.1"
+    ]
+
+    dependencies = [
+        design       : "com.android.support:design:$rootProject.libraryVersion",
+        support_v4   : "com.android.support:support-v4:$rootProject.libraryVersion",
+        cardview_v7  : "com.android.support:cardview-v7:$rootProject.libraryVersion",
+        appcompat_v7 : "com.android.support:appcompat-v7:$rootProject.libraryVersion",
+    ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
