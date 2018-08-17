@@ -1,33 +1,77 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
     defaultConfig {
-        applicationId "com.y"
-        minSdkVersion 21
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        multiDexEnabled true
+        multiDexKeepProguard file("multiDexKeep.pro") //分包时，将部分包放入主dex
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi', 'x86', 'armeabi-v7a'//,'x86_64', 'arm64-v8a'
+        }
     }
+
+    signingConfigs {
+        //开发者签名
+        production {
+            storeFile file("jks/ywb.jks")
+            storePassword "admin@123"
+            keyAlias "catdog"
+            keyPassword "admin@123"
+        }
+    }
+
     buildTypes {
+        debug {
+            versionNameSuffix "-debug"
+            debuggable true
+            signingConfig signingConfigs.production
+            buildConfigField("String", "API_URL", rootProject.ext.baseUrl.debugUrl)
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.production
+            buildConfigField("String", "API_URL", rootProject.ext.baseUrl.releaseUrl)
+            // 进行压缩优化
+            zipAlignEnabled true
+            // 进行资源优化，移除无用的resource文件  跟快速编译不兼容
+            // shrinkResources true
+            //修改apk包名
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    outputFileName = "app-${variant.name}-${defaultConfig.versionName}.apk"
+                }
+            }
         }
+    }
+    //移除lint检测的error
+    lintOptions {
+        abortOnError false
+    }
+
+    dexOptions {
+        jumboMode true
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation rootProject.ext.dependencies.support_v4
+    implementation rootProject.ext.dependencies.design
+    implementation rootProject.ext.dependencies.cardview_v7
+    implementation rootProject.ext.dependencies.appcompat_v7
+    implementation project(':mvp_library')
+    implementation 'com.android.support:multidex:1.0.3'
 }
