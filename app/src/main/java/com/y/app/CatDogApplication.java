@@ -1,13 +1,13 @@
 package com.y.app;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.y.mvp.app.MvpApplication;
 import com.y.util.AppUtil;
 import com.y.util.DiskCache;
 
-public class CatDogApplication extends Application {
+public class CatDogApplication extends MvpApplication {
 
     @Override
     protected void attachBaseContext(Context base) {

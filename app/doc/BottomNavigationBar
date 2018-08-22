@@ -1,0 +1,96 @@
+Mode
+xml：bnbMode
+方法：setMode()
+包含3种Mode:
+
+MODE_DEFAULT
+如果Item的个数<=3就会使用MODE_FIXED模式，否则使用MODE_SHIFTING模式
+
+MODE_FIXED （固定大小）
+。填充模式，未选中的Item会显示文字，没有换挡动画。
+。宽度=总宽度/action个数
+。最大宽度: 168dp
+。最小宽度: 80dp
+。Padding：6dp（8dp）、10dp、12dp
+。字体大小：12sp、14sp
+
+MODE_SHIFTING （不固定大小）
+。换挡模式，未选中的Item不会显示文字，选中的会显示文字。在切换的时候会有一个像换挡的动画
+
+。Active view ：Maximum: 168dp 、Minimum: 96dp
+。Inactive view：Maximum: 96dp、Minimum: 56dp
+。Padding：6dp above icon (active view), 16dp above and below icon (inactive view) 10dp under text
+
+
+Background Style
+xml: bnbBackgroundStyle
+方法：setBackgroundStyles()
+包含3种Style:
+
+BACKGROUND_STYLE_DEFAULT
+如果设置的Mode为MODE_FIXED，将使用BACKGROUND_STYLE_STATIC 。如果Mode为MODE_SHIFTING将使用BACKGROUND_STYLE_RIPPLE。
+
+BACKGROUND_STYLE_STATIC
+。点击的时候没有水波纹效果
+。航条的背景色是白色，加上setBarBackgroundColor（）可以设置成你所需要的任何背景颜色
+
+BACKGROUND_STYLE_RIPPLE
+。点击的时候有水波纹效果
+。导航条的背景色是你设置的处于选中状态的 Item的颜色（ActiveColor），也就是setActiveColorResource这个设置的颜色
+注意：要想设置底部导航的背景颜色有效果，必须是如下的配置
+
+bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
+bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
+bottomNavigationBar.setBarBackgroundColor(R.color.black); //换成你的背景色即可
+2、设置默认颜色
+xml：bnbActiveColor, bnbInactiveColor, bnbBackgroundColor
+方法：setActiveColor, setInActiveColor, setBarBackgroundColor
+
+bottomNavigationBar
+              .setActiveColor("#ff0000") //设置选中的颜色
+              .setInActiveColor("#FFFFFF")
+              .setBarBackgroundColor("#000000")
+in-active color
+表示未选中Item中的图标和文本颜色。默认为 Color.LTGRAY
+
+active color :
+在BACKGROUND_STYLE_STATIC下，表示选中Item的图标和文本颜色。而在BACKGROUND_STYLE_RIPPLE下，表示整个容器的背景色。默认Theme's Primary Color
+
+background color :
+在BACKGROUND_STYLE_STATIC下，表示整个容器的背景色。而在BACKGROUND_STYLE_RIPPLE下，表示选中Item的图标和文本颜色。默认 Color.WHITE
+
+3、定制Item的选中未选中颜色
+我们可以为每个Item设置选中未选中的颜色，如果没有设置，将继承BottomNavigationBar设置的选中未选中颜色。
+
+//设置Item未选中颜色方法
+new BottomNavigationItem().setInActiveColorResource(R.color.white)) 或者
+new BottomNavigationItem().setInActiveColor() 
+//设置Item选中颜色方法
+new BottomNavigationItem().setActiveColorResource()或者
+new BottomNavigationItem().setActiveColor() 
+4、Icon的定制
+如果使用颜色的变化不足以展示一个选项Item的选中与非选中状态，可以使用BottomNavigationItem.setInActiveIcon()方法来设置。
+
+ new BottomNavigationItem(R.drawable.ic_home_white_24dp, "公交")//这里表示选中的图片         .setInactiveIcon(ContextCompat.getDrawable(this,R.mipmap.ic_launcher));//非选中的图片
+5、手动隐藏与显示
+我们可以在任何时间，通过代码隐藏或显示BottomNavigationBar
+方法：
+
+bottomNavigationBar.hide();//隐藏
+bottomNavigationBar.hide(true);//隐藏是否启动动画，这里并不能自定义动画
+bottomNavigationBar.unHide();//显示
+bottomNavigationBar.hide(true);//隐藏是否启动动画，这里并不能自定义动画
+6、为Item添加Badge，一般用作消息提醒的
+
+Paste_Image.png
+BadgeItem badge=new BadgeItem()
+// .setBorderWidth(2)//Badge的Border(边界)宽度
+// .setBorderColor("#FF0000")//Badge的Border颜色
+// .setBackgroundColor("#9ACD32")//Badge背景颜色
+// .setGravity(Gravity.RIGHT| Gravity.TOP)//位置，默认右上角
+.setText("2")//显示的文本
+// .setTextColor("#F0F8FF")//文本颜色
+// .setAnimationDuration(2000)
+// .setHideOnSelect(true)//当选中状态时消失，非选中状态显示
+
+new BottomNavigationItem(R.mipmap.ic_directions_bike_white_24dp, "骑行").setBadgeItem(badge) //为item添加角标

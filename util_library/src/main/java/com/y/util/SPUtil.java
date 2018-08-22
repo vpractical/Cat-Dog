@@ -13,7 +13,7 @@ public class SPUtil {
 
     private static final String COMMON_FILE_NAME = "cat_dog_value";
 
-    public static void saveCommonString(String key, String value) {
+    public static void putCommonString(String key, String value) {
         SharedPreferences sp = AppUtil.context().getSharedPreferences(COMMON_FILE_NAME, Context.MODE_PRIVATE);
         sp.edit().putString(key, value).apply();
     }
@@ -33,7 +33,7 @@ public class SPUtil {
         sp.edit().clear().apply();
     }
 
-    public static void saveSingleString(String fileName, String value) {
+    public static void putSingleString(String fileName, String value) {
         SharedPreferences sp = AppUtil.context().getSharedPreferences(fileName, Context.MODE_PRIVATE);
         sp.edit().putString("value", value).apply();
     }
@@ -55,7 +55,7 @@ public class SPUtil {
         } catch (Exception e) {
             toSaveString = null;
         }
-        saveSingleString(fileName, toSaveString);
+        putSingleString(fileName, toSaveString);
     }
 
     public static Object getSingleObject( String fileName, Class<?> clz) {
@@ -63,21 +63,21 @@ public class SPUtil {
         if (stringData == null)
             return null;
         if (!stringData.startsWith("{") && !stringData.startsWith("[")) {
-            saveSingleString(fileName, null);
+            putSingleString(fileName, null);
             return null;
         }
         if (stringData.startsWith("{")) {
             try {
                 return JSON.parseObject(stringData, clz);
             } catch (Exception e) {
-                saveSingleString(fileName, null);
+                putSingleString(fileName, null);
                 return null;
             }
         } else {
             try {
                 return JSON.parseArray(stringData, clz);
             } catch (Exception e) {
-                saveSingleString(fileName, null);
+                putSingleString(fileName, null);
                 return null;
             }
         }

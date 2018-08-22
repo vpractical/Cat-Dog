@@ -43,6 +43,9 @@ public class T {
      */
     @SuppressLint("ShowToast")
     private static void showOnUiThread(String str, int time) {
+        if(str == null){
+            str = "null";
+        }
         if (toast == null) {
             toast = Toast.makeText(AppUtil.context(), str, time);
             toast.setGravity(Gravity.CENTER, 0, 0);
