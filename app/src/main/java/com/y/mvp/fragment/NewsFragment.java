@@ -2,12 +2,12 @@ package com.y.mvp.fragment;
 
 import com.y.R;
 import com.y.mvp.base.BaseFragment;
-import com.y.mvp.fragment.presenter.ToolPresenter;
+import com.y.mvp.fragment.presenter.NewsPresenter;
 
-public class ToolFragment extends BaseFragment<ToolPresenter> {
+public class NewsFragment extends BaseFragment<NewsPresenter> {
 
-    public static ToolFragment newInstance(){
-        ToolFragment chat = new ToolFragment();
+    public static NewsFragment newInstance(){
+        NewsFragment chat = new NewsFragment();
         return chat;
     }
 

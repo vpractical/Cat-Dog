@@ -20,7 +20,7 @@ public class T {
     }
 
 
-    private static void show(final String str, final int time) {
+    public static void show(final String str, final int time) {
         if (Looper.getMainLooper() == Looper.myLooper()) {
             // 主线程
             showOnUiThread(str, time);

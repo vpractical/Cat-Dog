@@ -10,8 +10,13 @@
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:windowBackground">@drawable/bg_window</item>
         <item name="toolbarNavigationButtonStyle">@style/myToolbarNavigationButtonStyle</item>
-
     </style>
+
+    <!-- 全屏主题 -->
+    <style name="FullTheme" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <!-- 修改toolbar中 NavigationIcon-->
     <style name="myToolbarNavigationButtonStyle" parent="@style/Widget.AppCompat.Toolbar.Button.Navigation">
         <item name="android:minWidth">0dp</item>
@@ -26,8 +31,9 @@
         <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item> <!--新增一个item，用于控制menu-->
     </style>
 
+    <!--把该属性改为false即可使menu位置位于toolbar之下-->
     <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
-        <item name="overlapAnchor">false</item>  <!--把该属性改为false即可使menu位置位于toolbar之下-->
+        <item name="overlapAnchor">false</item>
     </style>
 
 </resources>

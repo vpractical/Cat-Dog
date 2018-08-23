@@ -12,8 +12,6 @@ import android.view.ViewParent;
 import com.y.component.DaggerFragmentComponent;
 import com.y.component.FragmentComponent;
 import com.y.mvp.app.App;
-import com.y.mvp.base.BasePresenter;
-import com.y.mvp.base.BaseView;
 import com.y.util.T;
 
 import javax.inject.Inject;
@@ -26,7 +24,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends SupportFragm
 
     @Inject
     protected P mPresenter;
-    private Activity mActivity;
+    protected Activity mActivity;
     private View rootView;
     private Unbinder unbinder;
 
@@ -80,6 +78,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends SupportFragm
         }
         if (unbinder != null) {
             unbinder.unbind();
+            unbinder = null;
         }
 
     }

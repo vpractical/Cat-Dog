@@ -1,30 +1,35 @@
 package com.y.mvp.activity;
 
-        import android.graphics.Color;
-        import android.support.v4.view.ViewPager;
-        import android.support.v4.widget.DrawerLayout;
-        import android.view.Gravity;
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.view.View;
+import android.graphics.Color;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
-        import com.ashokvarma.bottomnavigation.BadgeItem;
-        import com.ashokvarma.bottomnavigation.BottomNavigationBar;
-        import com.ashokvarma.bottomnavigation.BottomNavigationItem;
-        import com.y.R;
-        import com.y.adapter.MainPagerAdapter;
-        import com.y.listener.OnDrawerListener;
-        import com.y.mvp.activity.presenter.MainPresenter;
-        import com.y.mvp.base.BaseActivity;
-        import com.y.mvp.base.BaseFragment;
-        import com.y.mvp.fragment.ChatFragment;
-        import com.y.mvp.fragment.GameFragment;
-        import com.y.mvp.fragment.ToolFragment;
+import com.ashokvarma.bottomnavigation.BadgeItem;
+import com.ashokvarma.bottomnavigation.BottomNavigationBar;
+import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.y.R;
+import com.y.adapter.MainPagerAdapter;
+import com.y.listener.OnDrawerListener;
+import com.y.mvp.activity.presenter.MainPresenter;
+import com.y.mvp.base.BaseActivity;
+import com.y.mvp.base.BaseFragment;
+import com.y.mvp.fragment.ChatFragment;
+import com.y.mvp.fragment.GameFragment;
+import com.y.mvp.fragment.NewsFragment;
+import com.y.mvp.fragment.MoreFragment;
+import com.y.mvp.fragment.VideoFragment;
 
-        import java.util.ArrayList;
-        import java.util.List;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
-        import butterknife.BindView;
+import butterknife.BindView;
 
 public class MainActivity extends BaseActivity<MainPresenter> {
 
@@ -36,7 +41,6 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     DrawerLayout drawerRoot;
 
     private List<BaseFragment> fragmentList = new ArrayList<>();
-    private MainPagerAdapter fragmentAdapter;
     private int currentIndex;
 
     @Override
@@ -52,7 +56,6 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected void init() {
         drawerRoot.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.END);
-
         initFragment();
         initToolbar();
         initNavBar();
@@ -61,18 +64,31 @@ public class MainActivity extends BaseActivity<MainPresenter> {
 
     private void initFragment() {
         fragmentList.clear();
+        fragmentList.add(NewsFragment.newInstance());
         fragmentList.add(ChatFragment.newInstance());
         fragmentList.add(GameFragment.newInstance());
-        fragmentList.add(ToolFragment.newInstance());
-        vpContainer.setAdapter(fragmentAdapter = new MainPagerAdapter(getSupportFragmentManager(), fragmentList));
+        fragmentList.add(VideoFragment.newInstance());
+        fragmentList.add(MoreFragment.newInstance());
+        vpContainer.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), fragmentList));
         vpContainer.setCurrentItem(currentIndex);
     }
 
     private void initToolbar() {
+        setSupportActionBar(mToolBar);
         setTitle("");
         mToolBar.inflateMenu(R.menu.main_menu);
-        mIvBack.setPadding(0, 0, 0, 0);
-        mIvBack.setImageResource(R.mipmap.ic_launcher);
+        ImageView ivIcon = mToolBar.getIconView();
+        ivIcon.setPadding(0, 0, 0, 0);
+        ivIcon.setImageResource(R.mipmap.ic_launcher_round);
+        ivIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!drawerRoot.isDrawerOpen(Gravity.START)) {
+                    drawerRoot.openDrawer(Gravity.START);
+                }
+            }
+        });
+        mToolBar.getTitleView().setText("首页");
     }
 
     private void initNavBar() {
@@ -80,9 +96,12 @@ public class MainActivity extends BaseActivity<MainPresenter> {
         navBar.setMode(BottomNavigationBar.MODE_FIXED);
         navBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
         navBar.setBarBackgroundColor(R.color.white);
-        navBar.addItem(new BottomNavigationItem(R.mipmap.ic_launcher, "聊天").setActiveColorResource(R.color.colorPrimaryDark).setBadgeItem(badgeItem))
-                .addItem(new BottomNavigationItem(R.mipmap.ic_launcher, "游戏").setActiveColorResource(R.color.colorPrimaryDark))
-                .addItem(new BottomNavigationItem(R.mipmap.ic_launcher, "便利").setActiveColorResource(R.color.colorPrimaryDark))
+        navBar
+                .addItem(new BottomNavigationItem(R.drawable.select_main_news_nav, "新闻").setActiveColorResource(R.color.colorPrimaryDark))
+                .addItem(new BottomNavigationItem(R.drawable.select_main_chat_nav, "聊天").setActiveColorResource(R.color.colorPrimaryDark).setBadgeItem(badgeItem))
+                .addItem(new BottomNavigationItem(R.drawable.select_main_game_nav, "游戏").setActiveColorResource(R.color.colorPrimaryDark))
+                .addItem(new BottomNavigationItem(R.drawable.select_main_video_nav, "视频").setActiveColorResource(R.color.colorPrimaryDark))
+                .addItem(new BottomNavigationItem(R.drawable.select_main_more_nav, "便利").setActiveColorResource(R.color.colorPrimaryDark))
                 .setFirstSelectedPosition(0)
                 .initialise(); //所有的设置需在调用该方法前完成
     }
@@ -123,12 +142,23 @@ public class MainActivity extends BaseActivity<MainPresenter> {
 
         drawerRoot.addDrawerListener(new OnDrawerListener(drawerRoot));
 
-        mIvBack.setOnClickListener(new View.OnClickListener() {
+        mToolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
-            public void onClick(View v) {
-                if (!drawerRoot.isDrawerOpen(Gravity.START)) {
-                    drawerRoot.openDrawer(Gravity.START);
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_scan:
+
+                        break;
+                    case R.id.action_qrcode:
+
+                        break;
+                    case R.id.action_settings:
+                        if (!drawerRoot.isDrawerOpen(Gravity.END)) {
+                            drawerRoot.openDrawer(Gravity.END);
+                        }
+                        break;
                 }
+                return false;
             }
         });
     }
@@ -136,24 +166,14 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_scan:
-
-                break;
-            case R.id.action_qrcode:
-
-                break;
-            case R.id.action_settings:
-                if (!drawerRoot.isDrawerOpen(Gravity.START)) {
-                    drawerRoot.openDrawer(Gravity.START);
-                }
-                break;
+        try {
+            Field field = menu.getClass().getDeclaredField("mOptionalIconsVisible");
+            field.setAccessible(true);
+            field.set(menu, true);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return super.onOptionsItemSelected(item);
+        return super.onCreateOptionsMenu(menu);
     }
+
 }

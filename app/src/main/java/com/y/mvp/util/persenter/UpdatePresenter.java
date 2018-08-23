@@ -1,4 +1,4 @@
-package com.y.mvp.persenter;
+package com.y.mvp.util.persenter;
 
 import com.y.api.SystemApi;
 import com.y.mvp.base.RxPresenter;

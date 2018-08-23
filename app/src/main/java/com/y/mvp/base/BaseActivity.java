@@ -3,40 +3,31 @@ package com.y.mvp.base;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.y.R;
 import com.y.component.ActivityComponent;
 import com.y.component.DaggerActivityComponent;
 import com.y.mvp.app.App;
+import com.y.mvp.widget.AppToolbar;
 import com.y.util.T;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.yokeyword.fragmentation.SupportActivity;
 
-public abstract class BaseActivity<P extends BasePresenter> extends SupportActivity implements BaseView,View.OnClickListener{
+public abstract class BaseActivity<P extends BasePresenter> extends SupportActivity implements BaseView{
 
     @Inject
     protected P mPresenter;
-    private Activity mActivity;
-
-    @BindView(R.id.toolbar_main)
-    public Toolbar mToolBar;
-    @BindView(R.id.iv_toolbar_icon)
-    public ImageView mIvBack;
-    @BindView(R.id.tv_toolbar_title)
-    TextView mTvTitle;
+    protected Activity mActivity;
+    protected AppToolbar mToolBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
+        mToolBar = findViewById(R.id.toolbar_main);
         mActivity = this;
         ButterKnife.bind(this);
         initInject();
@@ -53,17 +44,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends SupportActiv
     private void detach(){
         if (mPresenter != null) {
             mPresenter.detachView();
-        }
-    }
-
-    public void setTitle(String title){
-       mTvTitle.setText(title);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if(v == mIvBack){
-            finish();
         }
     }
 

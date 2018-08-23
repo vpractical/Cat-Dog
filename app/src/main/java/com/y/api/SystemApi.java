@@ -1,7 +1,5 @@
 package com.y.api;
 
-import com.google.gson.Gson;
-import com.y.mvp.base.LoadingDialog;
 import com.y.mvp.observer.CommonSubscriber;
 import com.y.mvp.observer.Transformer;
 
@@ -13,15 +11,13 @@ public class SystemApi {
 
     Retrofit mRetrofit;
 
-    @Inject
-    LoadingDialog mLoadingDialog;
+//    @Inject
+//    LoadingDialog mLoadingDialog;
 
-    Gson mGson;
 
     @Inject
-    public SystemApi(Retrofit retrofit, Gson gson) {
+    public SystemApi(Retrofit retrofit) {
         mRetrofit = retrofit;
-        mGson = gson;
     }
 
     public CommonSubscriber<String> checkUpdate(CommonSubscriber<String> subscriber) {

@@ -1,17 +1,16 @@
-package com.y.mvp.persenter;
+package com.y.mvp.fragment.presenter;
 
 import com.y.mvp.base.BasePresenter;
 import com.y.mvp.base.BaseView;
 
-public class UpdateContract {
+public class MoreContract {
 
     interface View extends BaseView{
-        void checkFailed(String msg);
-        void checkSuccess(String res);
+
     }
 
     interface Presenter extends BasePresenter<View>{
-        void checkUpdate();
+
     }
 
 }
