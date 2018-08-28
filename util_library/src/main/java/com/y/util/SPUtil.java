@@ -48,7 +48,7 @@ public class SPUtil {
         sp.edit().clear().apply();
     }
 
-    public static void saveSingleObject(String fileName, Object obj) {
+    public static void putSingleObject(String fileName, Object obj) {
         String toSaveString;
         try {
             toSaveString = (obj == null) ? null : JSON.toJSONString(obj);
@@ -81,6 +81,10 @@ public class SPUtil {
                 return null;
             }
         }
+    }
+
+    public static void deleteSingleObject(String fileName){
+        deleteSingleString(fileName);
     }
 
 

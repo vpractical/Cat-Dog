@@ -5,7 +5,8 @@
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:windowBackground">@drawable/bg_window</item>
@@ -31,9 +32,14 @@
         <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item> <!--新增一个item，用于控制menu-->
     </style>
 
-    <!--把该属性改为false即可使menu位置位于toolbar之下-->
+    <!-- 溢出菜单样式 -->
+
     <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
-        <item name="overlapAnchor">false</item>
+        <item name="overlapAnchor">false</item><!--把该属性改为false即可使menu位置位于toolbar之下-->
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:popupBackground">@color/colorPrimaryDark</item>
+        <item name="android:dropDownVerticalOffset">0dp</item>
+        <item name="android:dropDownHorizontalOffset">0dp</item>
     </style>
 
 </resources>

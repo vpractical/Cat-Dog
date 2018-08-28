@@ -13,7 +13,6 @@ public class UserApi {
 
     Retrofit mRetrofit;
 
-
     @Inject
     LoadingDialog mLoadingDialog;
 

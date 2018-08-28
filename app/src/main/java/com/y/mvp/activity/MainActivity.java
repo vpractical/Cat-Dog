@@ -1,10 +1,14 @@
 package com.y.mvp.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,15 +19,19 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.y.R;
 import com.y.adapter.MainPagerAdapter;
+import com.y.bean.User;
+import com.y.config.Key;
+import com.y.imageloader.ImageLoader;
 import com.y.listener.OnDrawerListener;
 import com.y.mvp.activity.presenter.MainPresenter;
 import com.y.mvp.base.BaseActivity;
 import com.y.mvp.base.BaseFragment;
 import com.y.mvp.fragment.ChatFragment;
 import com.y.mvp.fragment.GameFragment;
-import com.y.mvp.fragment.NewsFragment;
 import com.y.mvp.fragment.MoreFragment;
+import com.y.mvp.fragment.NewsFragment;
 import com.y.mvp.fragment.VideoFragment;
+import com.y.util.SPUtil;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -32,6 +40,12 @@ import java.util.List;
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity<MainPresenter> {
+
+    public static void start(Context context){
+        Intent intent = new Intent(context,MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
+    }
 
     @BindView(R.id.vp_main_container)
     ViewPager vpContainer;
@@ -42,6 +56,13 @@ public class MainActivity extends BaseActivity<MainPresenter> {
 
     private List<BaseFragment> fragmentList = new ArrayList<>();
     private int currentIndex;
+
+    /**
+     * 控制双击退出
+     */
+    private boolean clickToExit;
+
+    private User mUser = (User) SPUtil.getSingleObject(Key.USER_KEY,User.class);
 
     @Override
     protected int getLayout() {
@@ -56,6 +77,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected void init() {
         drawerRoot.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.END);
+        mUser = (User) SPUtil.getSingleObject(Key.USER_KEY,User.class);
         initFragment();
         initToolbar();
         initNavBar();
@@ -79,7 +101,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
         mToolBar.inflateMenu(R.menu.main_menu);
         ImageView ivIcon = mToolBar.getIconView();
         ivIcon.setPadding(0, 0, 0, 0);
-        ivIcon.setImageResource(R.mipmap.ic_launcher_round);
+        ImageLoader.with(mActivity).url(mUser.avatar).circle().into(ivIcon);
         ivIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,4 +198,22 @@ public class MainActivity extends BaseActivity<MainPresenter> {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            if(!clickToExit){
+                clickToExit = true;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        clickToExit = false;
+                    }
+                },300);
+            }else{
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

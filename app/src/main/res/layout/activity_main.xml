@@ -32,14 +32,14 @@
 
     <fragment
         android:name="com.y.mvp.fragment.LeftFragment"
-        android:layout_width="170dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="left"
         android:tag="LEFT" />
 
     <fragment
         android:name="com.y.mvp.fragment.RightFragment"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="right"
         android:tag="RIGHT" />

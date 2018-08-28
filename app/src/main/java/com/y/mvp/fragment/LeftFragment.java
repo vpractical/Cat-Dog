@@ -1,9 +1,17 @@
 package com.y.mvp.fragment;
 
+import android.view.View;
+
 import com.y.R;
 import com.y.mvp.base.BaseFragment;
+import com.y.mvp.widget.AppToolbar;
+
+import butterknife.BindView;
 
 public class LeftFragment extends BaseFragment {
+    @BindView(R.id.toolbar_main)
+    AppToolbar mToolbar;
+
     @Override
     protected int getLayout() {
         return R.layout.fragment_left;
@@ -16,6 +24,8 @@ public class LeftFragment extends BaseFragment {
 
     @Override
     protected void init() {
-
+        mToolbar.getIconView().setVisibility(View.GONE);
+        mToolbar.getTitleView().setText("菜单");
     }
+
 }

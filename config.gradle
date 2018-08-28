@@ -6,7 +6,7 @@ ext{
     ]
 
     android = [
-            applicationId     : "com.y.cat_dog",
+            applicationId     : "com.y.catdog",
             compileSdkVersion : 27,
             minSdkVersion     : 21,
             targetSdkVersion  : 27,

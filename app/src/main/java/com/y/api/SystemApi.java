@@ -1,5 +1,6 @@
 package com.y.api;
 
+import com.y.config.Const;
 import com.y.mvp.observer.CommonSubscriber;
 import com.y.mvp.observer.Transformer;
 
@@ -22,7 +23,7 @@ public class SystemApi {
 
     public CommonSubscriber<String> checkUpdate(CommonSubscriber<String> subscriber) {
         return mRetrofit.create(ApiService.class)
-                .checkUpdate()
+                .checkUpdate(Const.VERSION_CHECK_URL)
                 .compose(Transformer.<String>switchSchedulers())
                 .subscribeWith(subscriber);
     }

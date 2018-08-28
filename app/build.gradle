@@ -73,10 +73,15 @@ dependencies {
     implementation rootProject.ext.dependencies.cardview_v7
     implementation rootProject.ext.dependencies.appcompat_v7
     implementation project(':mvp_library')
+    implementation project(':imageloader')
+    implementation project(':vitamio')
     implementation 'com.android.support:multidex:1.0.3'
     annotationProcessor "com.google.dagger:dagger-compiler:2.15"
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+//    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'//glide高级功能
 
+    //首页顶部的tab
     implementation 'com.ashokvarma.android:bottom-navigation-bar:1.4.1'
+    //一个操作view的库
     implementation 'com.nineoldandroids:library:2.4.0'
 }

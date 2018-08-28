@@ -27,6 +27,8 @@ import com.y.mvp.module.ClientModule;
 import com.y.mvp.module.ConfigModule;
 import com.y.mvp.module.GlobalConfigBuild;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 
@@ -67,9 +69,9 @@ public class GlobalConfiguration implements ConfigModule {
                 .okHttpConfiguration(new ClientModule.IOkHttpConfiguration() {
                     @Override
                     public void configOkHttp(OkHttpClient.Builder builder) {
-//                        builder.writeTimeout(10, TimeUnit.SECONDS);
-//                        builder.readTimeout(10, TimeUnit.SECONDS);
-//                        builder.connectTimeout(10, TimeUnit.SECONDS);
+                        builder.writeTimeout(10, TimeUnit.SECONDS);
+                        builder.readTimeout(20, TimeUnit.SECONDS);
+                        builder.connectTimeout(10, TimeUnit.SECONDS);
                     }
                 });
 

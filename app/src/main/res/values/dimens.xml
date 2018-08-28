@@ -5,6 +5,7 @@
     <dimen name="dp18">18dp</dimen>
     <dimen name="dp16">16dp</dimen>
     <dimen name="dp14">14dp</dimen>
+    <dimen name="dp12">12dp</dimen>
 
 
 </resources>

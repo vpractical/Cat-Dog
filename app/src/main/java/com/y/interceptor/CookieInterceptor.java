@@ -15,9 +15,9 @@ public class CookieInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
 
-        if(SPUtil.getCommonString(Key.NET_COOKIES) != null){
+        if(SPUtil.getCommonString(Key.COOKIES_KEY) != null){
             Request.Builder builder = chain.request().newBuilder();
-            builder.addHeader("Cookie",SPUtil.getCommonString(Key.NET_COOKIES));
+            builder.addHeader("Cookie",SPUtil.getCommonString(Key.COOKIES_KEY));
         }
 
         Response originalResponse = chain.proceed(chain.request());
@@ -25,7 +25,7 @@ public class CookieInterceptor implements Interceptor {
         if (!originalResponse.headers("Set-Cookie").isEmpty()) {
             final StringBuffer cookieBuffer = new StringBuffer();
             if (chain.request().url().toString().equals("77777777777777")) {
-                SPUtil.putCommonString(Key.NET_COOKIES, cookieBuffer.toString());
+                SPUtil.putCommonString(Key.COOKIES_KEY, cookieBuffer.toString());
             }
         }
         return originalResponse;
