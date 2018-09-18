@@ -1,0 +1,99 @@
+import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.MotionEvent;
+
+/**
+ *点击一下非常快的（不滑动）Touchup：
+ *onDown->onSingleTapUp->onSingleTapConfirmed
+ *点击一下稍微慢点的（不滑动）Touchup：
+ *onDown->onShowPress->onSingleTapUp->onSingleTapConfirmed
+ **/
+public class MyGestureDetector extends SimpleOnGestureListener {
+
+    /**
+     * 双击的第二下Touch down时触发
+     */
+    @Override
+    public boolean onDoubleTap(MotionEvent e) {
+        System.out.println("*********onDoubleTap*******");
+        return super.onDoubleTap(e);
+    }
+
+    /**
+     * 双击的第二下Touch down和up都会触发，可用e.getAction()区分。
+     */
+    @Override
+    public boolean onDoubleTapEvent(MotionEvent e) {
+        System.out.println("*********onDoubleTapEvent*******");
+        return super.onDoubleTapEvent(e);
+    }
+
+    /**
+     * Touch down时触发
+     */
+    @Override
+    public boolean onDown(MotionEvent e) {
+        System.out.println("*********onDown*******");
+        return super.onDown(e);
+    }
+
+    /**
+     * Touch了滑动一点距离后，up时触发。
+     */
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float x,
+                           float y) {
+        System.out.println("*********onFling*******" + x + "******" + y);
+        return super.onFling(e1, e2, x, y);
+    }
+
+    /**
+     * Touch了不移动一直Touch down时触发
+     */
+    @Override
+    public void onLongPress(MotionEvent e) {
+        System.out.println("*********onLongPress*******");
+        super.onLongPress(e);
+    }
+
+    /**Touch了滑动时触发。
+     *输出x,y值
+     * 向上划动y为正，向左划时x为正 e1为划动时的Event，e2,为划动后的Event
+     */
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float x,
+                            float y) {
+        System.out.println("*********onScroll*******" + x + "*******" + y);
+        return super.onScroll(e1, e2, x, y);
+    }
+
+    /**
+     * Touch了还没有滑动时触发
+     * onDown只要Touch down一定立刻触发。
+     * 而Touchdown后过一会没有滑动先触发onShowPress再是onLongPress。
+     * 所以Touchdown后一直不滑动，onDown->onShowPress->onLongPress这个顺序触发。
+     */
+    @Override
+    public void onShowPress(MotionEvent e) {
+        System.out.println("*********onShowPress*******");
+        super.onShowPress(e);
+    }
+
+    /**
+     * 和onSingleTapup不一样，当监听器确定没有第二次按下事件时，才调用此方法，也就是onSingleTapUp不能确定是单击还是双击，而此方法响应可以确定一定是单击
+     */
+    @Override
+    public boolean onSingleTapConfirmed(MotionEvent e) {
+        System.out.println("*********onSingleTapConfirmed*******");
+        return super.onSingleTapConfirmed(e);
+    }
+
+    /**
+     * 只要按下就会调用此方法，当双击时，第一次按下时会调用此方法，而第二次不会调用
+     */
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        System.out.println("*********onSingleTapUp*******");
+        return super.onSingleTapUp(e);
+    }
+
+}
