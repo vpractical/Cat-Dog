@@ -1,0 +1,39 @@
+package com.y.mvp.fragment;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
+import com.y.R;
+import com.y.mvp.base.BaseFragment;
+import com.y.mvp.fragment.presenter.ChatPresenter;
+import com.y.util.L;
+
+public class ChatFragment extends BaseFragment<ChatPresenter> {
+
+    public static ChatFragment newInstance(){
+        ChatFragment chat = new ChatFragment();
+        return chat;
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.fragment_chat;
+    }
+
+    @Override
+    protected void initInject() {
+        getFragmentComponent().inject(this);
+    }
+
+    @Override
+    protected void init() {
+        L.e("Chat init()");
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        L.e("Chat onLazyInitView()");
+    }
+
+}
