@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <!--<include layout="@layout/toolbar" />-->
+
+    <FrameLayout
+        android:id="@+id/container_vv"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="#000000"
+        >
+        <io.vov.vitamio.widget.VideoView
+            android:id="@+id/vv_video"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_video_detail_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+
+        />
+
+</LinearLayout>

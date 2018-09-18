@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialKeyguardLayout="@layout/widget_weather"
+    android:initialLayout="@layout/widget_weather"
+    android:minHeight="40dp"
+    android:minWidth="250dp"
+    android:previewImage="@mipmap/logo"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="86400000"
+    android:widgetCategory="home_screen|keyguard"
+    >
+    <!--如果需要在启动前先启动一个Activity进行设置，在这里给出Activity的完整类名-->
+    <!--android:configure="com.y.mvp.activity.WeatherWidgetActivity"-->
+</appwidget-provider>
