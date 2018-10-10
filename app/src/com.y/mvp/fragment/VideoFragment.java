@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.y.R;
 import com.y.adapter.VideoAdapter;
 import com.y.bean.HotStraetgyEntity;
-import com.y.mvp.activity.VideoActivity;
+import com.y.mvp.activity.video.VideoActivity;
 import com.y.mvp.base.BaseFragment;
 import com.y.mvp.fragment.presenter.VideoContract;
 import com.y.mvp.fragment.presenter.VideoPresenter;

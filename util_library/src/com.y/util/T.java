@@ -2,11 +2,12 @@ package com.y.util;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.widget.Toast;
 
 public class T {
-    private static final Toast toast = Toast.makeText(AppUtil.context(), "", Toast.LENGTH_SHORT);;
+    private static final Toast toast = Toast.makeText(AppUtil.context(), "", Toast.LENGTH_SHORT);
     private static final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     static {
@@ -24,10 +25,8 @@ public class T {
      * @param str
      */
     public static void show(String str) {
-//        Toast.makeText(AppUtil.context(),str,Toast.LENGTH_SHORT).show();
         show(str, Toast.LENGTH_SHORT);
     }
-
 
     public static void show(final String str, final int time) {
         if (Looper.getMainLooper() == Looper.myLooper()) {
@@ -47,8 +46,7 @@ public class T {
     /**
      * 在UI线程显示（居中）
      */
-    private static void showOnUiThread(String str, int time) {
-        if (str == null) str = "null";
+    private static void showOnUiThread(@NonNull String str, int time) {
         toast.setText(str);
         toast.setDuration(time);
         toast.show();

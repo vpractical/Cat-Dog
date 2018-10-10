@@ -51,7 +51,17 @@
 
         </cn.qqtheme.framework.widget.WheelView>
     </LinearLayout>
-
+    <Button
+        android:id="@+id/btn_right_shortcut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="设置快捷菜单"
+        android:textSize="@dimen/sp14"
+        android:textColor="@color/defaultTextColor"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_right_exit"
+        android:layout_margin="10dp"
+        />
 
     <Button
         android:id="@+id/btn_right_exit"

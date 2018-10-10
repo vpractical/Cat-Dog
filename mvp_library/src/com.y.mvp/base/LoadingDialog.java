@@ -104,7 +104,7 @@ public class LoadingDialog extends Dialog {
     }
 
     public void setOnWhole() {
-        getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
     }
 
 

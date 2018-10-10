@@ -1,4 +1,4 @@
-package com.y.mvp.activity;
+package com.y.mvp.activity.video;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.y.R;
 import com.y.mvp.activity.presenter.VideoContract;
 import com.y.mvp.activity.presenter.VideoPresenter;
-import com.y.mvp.activity.video.YMediaController;
 import com.y.mvp.base.BaseActivity;
 import com.y.util.AppUtil;
 import com.y.util.T;

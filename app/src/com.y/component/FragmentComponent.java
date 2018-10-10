@@ -11,6 +11,7 @@ import com.y.mvp.fragment.VideoFragment;
 import com.y.mvp.login.ByCodeFragment;
 import com.y.mvp.login.ByFaceFragment;
 import com.y.mvp.login.ByPwdFragment;
+import com.y.mvp.login.ByThirdFragment;
 import com.y.mvp.login.ByVisitFragment;
 import com.y.mvp.scope.CustomizeScope;
 
@@ -23,6 +24,7 @@ public interface FragmentComponent {
     void inject(ByPwdFragment byPwd);
     void inject(ByFaceFragment byFace);
     void inject(ByVisitFragment byVisit);
+    void inject(ByThirdFragment byThird);
     void inject(NewsFragment tool);
     void inject(ChatFragment chat);
     void inject(GameFragment game);

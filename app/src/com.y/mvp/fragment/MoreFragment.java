@@ -8,11 +8,14 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.y.R;
 import com.y.adapter.MoreAdapter;
 import com.y.mvp.activity.ASCIIImageActivity;
-import com.y.mvp.activity.ArithmeticActivity;
+import com.y.mvp.activity.Arith1Activity;
+import com.y.mvp.activity.BinderTestActivity;
+import com.y.mvp.activity.NotificationTestActivity;
+import com.y.mvp.activity.nested.NestedScrollActivity;
 import com.y.mvp.activity.QuickDemo2Activity;
 import com.y.mvp.activity.QuickDemoActivity;
 import com.y.mvp.base.BaseFragment;
-import com.y.mvp.form.FormActivity;
+import com.y.mvp.activity.form.FormActivity;
 import com.y.mvp.fragment.presenter.MorePresenter;
 
 import java.util.ArrayList;
@@ -49,9 +52,9 @@ public class MoreFragment extends BaseFragment<MorePresenter> {
         mores.add(R.drawable.more_adapter);
         mores.add(R.drawable.more_adapter);
         mores.add(R.drawable.more_form);
-        mores.add(R.drawable.more_ascii_img);
-        mores.add(R.drawable.more_ascii_img);
-        mores.add(R.drawable.more_ascii_img);
+        mores.add(R.drawable.more_binder);
+        mores.add(R.drawable.more_nested);
+        mores.add(R.drawable.more_notification);
         mores.add(R.drawable.more_ascii_img);
         mores.add(R.drawable.more_ascii_img);
         GridLayoutManager gManager = new GridLayoutManager(mActivity,2,GridLayoutManager.VERTICAL,false);
@@ -68,10 +71,10 @@ public class MoreFragment extends BaseFragment<MorePresenter> {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (position){
                     case 0:
-                        ASCIIImageActivity.start(mActivity);
+                        ASCIIImageActivity.start(mActivity,view);
                         break;
                     case 1:
-                        ArithmeticActivity.start(mActivity);
+                        Arith1Activity.start(mActivity);
                         break;
                     case 2:
                         QuickDemoActivity.start(mActivity);
@@ -80,7 +83,16 @@ public class MoreFragment extends BaseFragment<MorePresenter> {
                         QuickDemo2Activity.start(mActivity);
                         break;
                     case 4:
-                        FormActivity.start(mActivity);
+                        FormActivity.Companion.start(mActivity);
+                        break;
+                    case 5:
+                        BinderTestActivity.start(mActivity);
+                        break;
+                    case 6:
+                        NestedScrollActivity.start(mActivity);
+                        break;
+                    case 7:
+                        NotificationTestActivity.start(mActivity);
                         break;
                     default:
                         break;

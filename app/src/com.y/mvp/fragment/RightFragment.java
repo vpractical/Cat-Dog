@@ -9,7 +9,8 @@ import com.y.R;
 import com.y.bean.Login;
 import com.y.bean.User;
 import com.y.config.Key;
-import com.y.config.Config;
+import com.y.config.SystemConfig;
+import com.y.mvp.activity.ShortCutsActivity;
 import com.y.mvp.login.LoginActivity;
 import com.y.mvp.base.BaseFragment;
 import com.y.mvp.view.AppToolbar;
@@ -30,6 +31,8 @@ public class RightFragment extends BaseFragment {
     AppToolbar mToolbar;
     @BindView(R.id.btn_right_exit)
     Button btnExit;
+    @BindView(R.id.btn_right_shortcut)
+    Button btnShortCut;
     @BindView(R.id.wheel_right)
     WheelView wheelView;
 
@@ -54,7 +57,7 @@ public class RightFragment extends BaseFragment {
     }
 
     private void initWheel() {
-        loginTypes = Config.loginTypes();
+        loginTypes = SystemConfig.loginTypes();
         List<String> types = new ArrayList<>(loginTypes.size());
         int loginTypeIndex = SPUtil.getCommonInt(Key.LOGIN_TYPE, 0);
         for (int i = 0; i < loginTypes.size(); i++) {
@@ -86,11 +89,14 @@ public class RightFragment extends BaseFragment {
         });
     }
 
-    @OnClick(R.id.btn_right_exit)
+    @OnClick({R.id.btn_right_exit,R.id.btn_right_shortcut})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_right_exit:
                 loginOut();
+                break;
+            case R.id.btn_right_shortcut:
+                ShortCutsActivity.start(mActivity);
                 break;
         }
     }

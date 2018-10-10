@@ -15,10 +15,10 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class ArithmeticActivity extends BaseActivity {
+public class Arith1Activity extends BaseActivity {
 
     public static void start(Context context) {
-        Intent intent = new Intent(context, ArithmeticActivity.class);
+        Intent intent = new Intent(context, Arith1Activity.class);
         context.startActivity(intent);
     }
 

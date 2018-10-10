@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="46dp"
     android:orientation="vertical">
 
     <com.y.mvp.view.AppToolbar
         android:id="@+id/toolbar_main"
         android:layout_width="match_parent"
         android:layout_height="46dp"
-        android:background="?attr/colorPrimary"
+        android:background="@color/colorPrimary"
         android:gravity="center_vertical"
         app:popupTheme="@style/ToolbarPopupTheme">
 
@@ -19,7 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp">
+            android:paddingRight="10dp"
+            >
 
             <ImageView
                 android:id="@+id/iv_toolbar_icon"

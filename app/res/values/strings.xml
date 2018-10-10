@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">黄昏</string>
     <string name="app_name_second">清晨</string>
+
+    <string name="cut_short">字符画</string>
+    <string name="cut_long">字符画</string>
+    <string name="cut_error">字符画(不可用)</string>
+
 </resources>

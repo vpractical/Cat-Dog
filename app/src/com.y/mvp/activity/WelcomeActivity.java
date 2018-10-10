@@ -8,6 +8,7 @@ import com.y.mvp.base.BaseActivity;
 import com.y.util.SPUtil;
 
 public class WelcomeActivity extends BaseActivity {
+
     @Override
     protected int getLayout() {
         return R.layout.activity_welcome;

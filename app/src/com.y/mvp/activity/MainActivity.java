@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
@@ -20,18 +21,20 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.y.R;
 import com.y.adapter.MainPagerAdapter;
+import com.y.bean.Login;
 import com.y.bean.User;
 import com.y.config.Key;
 import com.y.imageloader.ImageLoader;
 import com.y.listener.OnDrawerListener;
 import com.y.mvp.activity.presenter.MainPresenter;
 import com.y.mvp.base.BaseActivity;
-import com.y.mvp.base.BaseFragment;
 import com.y.mvp.fragment.ChatFragment;
 import com.y.mvp.fragment.GameFragment;
 import com.y.mvp.fragment.MoreFragment;
 import com.y.mvp.fragment.NewsFragment;
 import com.y.mvp.fragment.VideoFragment;
+import com.y.mvp.login.LoginActivity;
+import com.y.util.AppUtil;
 import com.y.util.SPUtil;
 import com.y.util.T;
 
@@ -56,7 +59,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @BindView(R.id.drawer_main)
     DrawerLayout drawerRoot;
 
-    private List<BaseFragment> fragmentList = new ArrayList<>();
+    private List<Fragment> fragmentList = new ArrayList<>();
     private List<Pair<Integer,String>> elements = new ArrayList<>(5);
     private int currentIndex;
     /**
@@ -80,6 +83,19 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     protected void init() {
 //        drawerRoot.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.END);
         mUser = (User) SPUtil.getSingleObject(Key.USER_KEY,User.class);
+        if(mUser == null){
+            T.show("未检测到用户，将退出到登录页");
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    User.exit();
+                    Login.exit();
+                    AppUtil.finishAll();
+                    AppUtil.start(LoginActivity.class);
+                }
+            },1000);
+            return;
+        }
         initFragment();
         initToolbar();
         initNavBar();

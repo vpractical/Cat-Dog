@@ -3,7 +3,7 @@ package com.y.mvp.fragment.presenter;
 import com.y.mvp.base.BasePresenter;
 import com.y.mvp.base.BaseView;
 
-public class NewsContract {
+public interface NewsContract {
 
     interface View extends BaseView{
     }

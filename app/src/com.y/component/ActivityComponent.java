@@ -3,7 +3,7 @@ package com.y.component;
 import com.y.mvp.activity.ASCIIImageActivity;
 import com.y.mvp.activity.MainActivity;
 import com.y.mvp.activity.RoleActivity;
-import com.y.mvp.activity.VideoActivity;
+import com.y.mvp.activity.video.VideoActivity;
 import com.y.mvp.component.AppComponent;
 import com.y.mvp.login.LoginActivity;
 import com.y.mvp.scope.CustomizeScope;

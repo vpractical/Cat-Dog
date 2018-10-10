@@ -2,13 +2,14 @@ package com.y.mvp.fragment;
 
 import com.y.R;
 import com.y.mvp.base.BaseFragment;
+import com.y.mvp.fragment.presenter.NewsContract;
 import com.y.mvp.fragment.presenter.NewsPresenter;
 
-public class NewsFragment extends BaseFragment<NewsPresenter> {
+public class NewsFragment extends BaseFragment<NewsPresenter> implements NewsContract.View{
 
     public static NewsFragment newInstance(){
-        NewsFragment chat = new NewsFragment();
-        return chat;
+        NewsFragment news = new NewsFragment();
+        return news;
     }
 
     @Override

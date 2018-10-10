@@ -1,11 +1,13 @@
 package com.y.mvp.login;
 
 
+import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.View;
@@ -14,13 +16,15 @@ import android.widget.ImageView;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+import com.umeng.socialize.UMShareAPI;
 import com.y.R;
-import com.y.config.Config;
+import com.y.config.SystemConfig;
 import com.y.config.Key;
 import com.y.mvp.base.BaseActivity;
 import com.y.mvp.util.persenter.EmptyContract;
 import com.y.mvp.util.persenter.EmptyPresenter;
 import com.y.mvp.view.AppToolbar;
+import com.y.util.PermissionUtil;
 import com.y.util.SPUtil;
 
 import java.util.List;
@@ -32,7 +36,7 @@ public class LoginActivity extends BaseActivity<EmptyPresenter> implements Empty
         context.startActivity(intent);
     }
 
-    private List<Pair<Integer, String>> loginTypes = Config.loginTypes();
+    private List<Pair<Integer, String>> loginTypes = SystemConfig.loginTypes();
     private int loginTypeIndex = -1;
 
     @Override
@@ -81,35 +85,68 @@ public class LoginActivity extends BaseActivity<EmptyPresenter> implements Empty
         if (loginTypeIndex == index) {
             return;
         }
-        loginTypeIndex = index;
-        SPUtil.putCommonInt(Key.LOGIN_TYPE, loginTypeIndex);
-
         mToolBar.getMenu().findItem(R.id.action_camera_switch).setVisible(false);
         mToolBar.getMenu().findItem(R.id.action_register).setVisible(false);
 
         BaseLoginFragment fragment;
 
-        switch (loginTypeIndex) {
-            case 0:
+        switch (index) {
+            case SystemConfig.LOGIN_BY_CODE:
                 fragment = ByCodeFragment.newInstance();
                 break;
-            case 1:
+            case SystemConfig.LOGIN_BY_PWD:
                 fragment = ByPwdFragment.newInstance();
                 break;
-            case 2:
+            case SystemConfig.LOGIN_BY_FACE:
+                if (!permissionCheck()) {
+                    return;
+                }
                 fragment = ByFaceFragment.newInstance();
                 mToolBar.getMenu().findItem(R.id.action_camera_switch).setVisible(true);
                 mToolBar.getMenu().findItem(R.id.action_register).setVisible(true);
                 break;
-            case 3:
+            case SystemConfig.LOGIN_BY_THIRD:
+                fragment = ByThirdFragment.newInstance();
+                break;
+            case SystemConfig.LOGIN_BY_VISIT:
             default:
                 fragment = ByVisitFragment.newInstance();
                 break;
         }
-
-        loadRootFragment(R.id.container_login, fragment,false,false);
-        mToolBar.getTitleView().setText(loginTypes.get(loginTypeIndex).second);
+        loadRootFragment(R.id.container_login, fragment, false, false);
+        mToolBar.getTitleView().setText(loginTypes.get(index).second);
+        loginTypeIndex = index;
+        SPUtil.putCommonInt(Key.LOGIN_TYPE, loginTypeIndex);
     }
+
+    public boolean permissionCheck() {
+        String perm = Manifest.permission.CAMERA;
+        if (!PermissionUtil.getInstance().has(mActivity, perm)) {
+            PermissionUtil.getInstance().callback(new PermissionUtil.PermissionCallback() {
+                @Override
+                public void onGranted(List<String> perms) {
+                    if (permissionCheck()) {
+                        showLogin(SystemConfig.LOGIN_BY_FACE);
+                    }
+                }
+
+                @Override
+                public void onDenied(List<String> perms) {
+                    PermissionUtil.getInstance().neverAsk(mActivity, "权限被禁止，请设置", perms);
+                }
+
+                @Override
+                public void onSettingGranted() {
+                    if (permissionCheck()) {
+                        showLogin(SystemConfig.LOGIN_BY_FACE);
+                    }
+                }
+            }).request(mActivity, "刷脸需相机权限，请允许", perm);
+            return false;
+        }
+        return true;
+    }
+
 
     /**
      * 切换登录方式
@@ -127,29 +164,42 @@ public class LoginActivity extends BaseActivity<EmptyPresenter> implements Empty
         ImageView rlIcon2 = new ImageView(this);
         ImageView rlIcon3 = new ImageView(this);
         ImageView rlIcon4 = new ImageView(this);
+        ImageView rlIcon5 = new ImageView(this);
         // 设置弹出菜单的图标
         rlIcon1.setImageResource(R.drawable.login_by_code);
         rlIcon2.setImageResource(R.drawable.login_by_pwd);
         rlIcon3.setImageResource(R.drawable.scan_dark);
-        rlIcon4.setImageResource(R.drawable.login_by_visit);
+        rlIcon4.setImageResource(R.drawable.more_white);
+        rlIcon5.setImageResource(R.drawable.login_by_visit);
 
         SubActionButton sab1 = rLSubBuilder.setContentView(rlIcon1).build();
         SubActionButton sab2 = rLSubBuilder.setContentView(rlIcon2).build();
         SubActionButton sab3 = rLSubBuilder.setContentView(rlIcon3).build();
         SubActionButton sab4 = rLSubBuilder.setContentView(rlIcon4).build();
+        SubActionButton sab5 = rLSubBuilder.setContentView(rlIcon5).build();
 
         //子菜单和按钮距离，子菜单的显示角度
-        //        int actionMenuRadius = getResources().getDimensionPixelSize(R.dimen.dp96);
-//                .setRadius(actionMenuRadius)
-//                .setStartAngle(215)
-//                .setEndAngle(305)
+        int actionMenuRadius = getResources().getDimensionPixelSize(R.dimen.dp108);
         final FloatingActionMenu rightLowerMenu = new FloatingActionMenu.Builder(this)
                 .addSubActionView(sab1)
                 .addSubActionView(sab2)
                 .addSubActionView(sab3)
                 .addSubActionView(sab4)
+                .addSubActionView(sab5)
                 .attachTo(rightLowerButton)
+                .setRadius(actionMenuRadius)
+                .setStartAngle(175)
+                .setEndAngle(275)
                 .build();
+
+        final Runnable closeTask = new Runnable() {
+            @Override
+            public void run() {
+                if (rightLowerMenu != null && rightLowerMenu.isOpen()) {
+                    rightLowerMenu.close(true);
+                }
+            }
+        };
 
         rightLowerMenu.setStateChangeListener(new FloatingActionMenu.MenuStateChangeListener() {
 
@@ -160,6 +210,9 @@ public class LoginActivity extends BaseActivity<EmptyPresenter> implements Empty
                 PropertyValuesHolder pvhR = PropertyValuesHolder.ofFloat(View.ROTATION, -90);
                 ObjectAnimator animation = ObjectAnimator.ofPropertyValuesHolder(fabIconNew, pvhR);
                 animation.start();
+
+                fabIconNew.removeCallbacks(closeTask);
+                fabIconNew.postDelayed(closeTask, 3000);
             }
 
             @Override
@@ -176,30 +229,55 @@ public class LoginActivity extends BaseActivity<EmptyPresenter> implements Empty
             @Override
             public void onClick(View v) {
                 rightLowerMenu.close(true);
-                showLogin(0);
+                showLogin(SystemConfig.LOGIN_BY_CODE);
             }
         });
         sab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 rightLowerMenu.close(true);
-                showLogin(1);
+                showLogin(SystemConfig.LOGIN_BY_PWD);
             }
         });
         sab3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 rightLowerMenu.close(true);
-                showLogin(2);
+                showLogin(SystemConfig.LOGIN_BY_FACE);
             }
         });
         sab4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 rightLowerMenu.close(true);
-                showLogin(3);
+                showLogin(SystemConfig.LOGIN_BY_THIRD);
+            }
+        });
+        sab5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rightLowerMenu.close(true);
+                showLogin(SystemConfig.LOGIN_BY_VISIT);
             }
         });
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionUtil.getInstance().onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        PermissionUtil.getInstance().onActivityResult(requestCode);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UMShareAPI.get(this).release();
+    }
 }

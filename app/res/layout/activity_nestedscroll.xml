@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <include layout="@layout/toolbar" />
+
+    <com.y.mvp.activity.nested.NestedParentLinearLayout
+        android:id="@+id/container_parent"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/divider_rectangle"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+
+        <com.y.mvp.activity.nested.NestedChildLinearLayout
+            android:id="@+id/container_child"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:orientation="vertical"
+            android:background="@drawable/divider_rectangle"
+            >
+
+            <ImageView
+                android:id="@+id/iv_child"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/more_ascii_img"
+                android:scaleType="fitCenter"
+                android:layout_margin="10dp"
+                />
+
+        </com.y.mvp.activity.nested.NestedChildLinearLayout>
+
+    </com.y.mvp.activity.nested.NestedParentLinearLayout>
+
+</FrameLayout>
