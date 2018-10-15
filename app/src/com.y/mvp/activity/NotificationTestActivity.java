@@ -30,6 +30,9 @@ import com.y.util.TimeUtil;
 import java.io.File;
 
 
+/**
+ * 8.0后从不同的NotificationChannel发起的通知，分被禁用全体通知，和被禁用某个Channel
+ */
 public class NotificationTestActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static void start(Context context) {
