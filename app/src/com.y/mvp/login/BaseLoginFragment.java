@@ -8,7 +8,7 @@ import com.y.mvp.base.BaseFragment;
 public abstract class BaseLoginFragment extends BaseFragment<LoginPresenter> implements LoginContract.View {
 
     @Override
-    public void LoginSuccess() {
+    public void loginSuccess() {
         MainActivity.start(mActivity);
         mActivity.finish();
     }

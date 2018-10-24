@@ -19,10 +19,16 @@ public class UpdatePresenter extends RxPresenter<UpdateContract.View> implements
     @Override
     public void checkUpdate() {
         mSystemApi.checkUpdate(new CommonSubscriber<String>() {
+
             @Override
-            public void onNext(String res) {
+            public void onSuccess(String res) {
                 T.show(res);
                 L.e(res);
+            }
+
+            @Override
+            public void onFailed(String msg) {
+
             }
         });
     }

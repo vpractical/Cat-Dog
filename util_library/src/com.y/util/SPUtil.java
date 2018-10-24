@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.alibaba.fastjson.JSON;
 
 /**
  * common ：保存在一个xml中的字段
@@ -65,7 +64,7 @@ public class SPUtil {
     public static void putSingleObject(String fileName, Object obj) {
         String toSaveString;
         try {
-            toSaveString = (obj == null) ? null : JSON.toJSONString(obj);
+            toSaveString = (obj == null) ? null : JsonUtil.toStr(obj);
         } catch (Exception e) {
             toSaveString = null;
         }
@@ -82,14 +81,14 @@ public class SPUtil {
         }
         if (stringData.startsWith("{")) {
             try {
-                return JSON.parseObject(stringData, clz);
+                return JsonUtil.toBean(stringData,clz);
             } catch (Exception e) {
                 putSingleString(fileName, null);
                 return null;
             }
         } else {
             try {
-                return JSON.parseArray(stringData, clz);
+                return JsonUtil.toList(stringData, clz);
             } catch (Exception e) {
                 putSingleString(fileName, null);
                 return null;

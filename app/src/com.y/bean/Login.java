@@ -11,7 +11,11 @@ public class Login {
     /**
      * 登录手机号
      */
-    public String loginPhone;
+    public String phone;
+    /**
+     * 登录账号
+     */
+    public String account;
 
     /**
      * 登录类型
@@ -19,10 +23,10 @@ public class Login {
      */
     public int loginType;
 
-
     public static void exit(){
         Login login = (Login) SPUtil.getSingleObject(Key.LOGIN_KEY,Login.class);
         login.validTime = 0;
         SPUtil.putSingleObject(Key.LOGIN_KEY,login);
+        SPUtil.deleteSingleObject(Key.USER_KEY);
     }
 }

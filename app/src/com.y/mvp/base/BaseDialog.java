@@ -8,7 +8,6 @@ import com.y.component.DaggerDialogComponent;
 import com.y.component.DialogComponent;
 import com.y.mvp.app.App;
 import com.y.util.AppUtil;
-import com.y.util.T;
 
 import javax.inject.Inject;
 
@@ -53,8 +52,4 @@ public abstract class BaseDialog<P extends BasePresenter> extends Dialog impleme
         detachView();
     }
 
-    @Override
-    public void showError(String msg) {
-        T.show(msg);
-    }
 }

@@ -1,4 +1,4 @@
-package com.y.app;
+package com.y;
 
 import android.content.res.Configuration;
 import android.support.multidex.MultiDex;
@@ -7,6 +7,7 @@ import com.y.config.GlideConfig;
 import com.y.config.UmConfig;
 import com.y.imageloader.ImageLoader;
 import com.y.mvp.app.MvpApplication;
+import com.y.route.Router;
 import com.y.util.AppUtil;
 import com.y.util.DiskCache;
 
@@ -24,6 +25,7 @@ public class CatDogApplication extends MvpApplication {
         MultiDex.install(this);
         UmConfig.init(this);
         ImageLoader.getInstance().strategy(new GlideConfig()).configure();
+        Router.init(this);
     }
 
     @Override

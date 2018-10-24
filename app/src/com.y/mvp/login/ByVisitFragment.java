@@ -22,6 +22,8 @@ public class ByVisitFragment extends BaseLoginFragment {
         return byVisit;
     }
 
+    private static final String TAG = "ByVisitFragment";
+
     @BindView(R.id.iv_visit_avatar)
     ImageView ivAvatar;
     @BindView(R.id.tv_visit_nick)
@@ -50,7 +52,24 @@ public class ByVisitFragment extends BaseLoginFragment {
     }
 
     @Override
-    public void onSupportVisible() {
+    public void onStart() {
+        super.onStart();
+        couldShow();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        couldHide();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        couldHide();
+    }
+
+    private void couldShow() {
         final String avatar = "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=4034242562,3519494498&fm=27&gp=weather0.jpg";
         ImageLoader.with(this).url(avatar).circle().into(ivAvatar);
 
@@ -75,8 +94,7 @@ public class ByVisitFragment extends BaseLoginFragment {
                 });
     }
 
-    @Override
-    public void onSupportInvisible() {
+    private void couldHide() {
         if (!countDownDisposable.isDisposed()) {
             countDownDisposable.dispose();
         }

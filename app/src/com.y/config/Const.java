@@ -1,7 +1,29 @@
 package com.y.config;
 
+import com.y.BuildConfig;
+
 public class Const {
-    public static final String BASE_URL = "http://www.baidu.com";
+    public static final String BASE_URL = BuildConfig.API_URL;
+
+    /**
+     * 获取某个用户信息
+     */
+    public static final String QUERY_USER_INFO_URL = "user/info";
+
+    /**
+     * 注册
+     */
+    public static final String REGISTER_USER_URL = "user/register";
+
+    /**
+     * 登录
+     */
+    public static final String LOGIN_USER_URL = "user/login";
+
+    /**
+     * 注销
+     */
+    public static final String UNREGISTER_USER_URL = "user/unregister";
 
     /**
      * 立绘本地存储目录
@@ -17,11 +39,6 @@ public class Const {
      *  检查更新
      */
     public static final String VERSION_CHECK_URL = "http://wx.yuneke.com/usercentre/verController.do?&verNo=3.1.weather0.10-debug&model=TPS615&orgId=";
-    /**
-     *  登录
-     */
-    public static final String LOGIN_URL = "";
-
 
     public static final String WEATHER_URL = "http://jisutqybmf.market.alicloudapi.com/weather/query/";
 

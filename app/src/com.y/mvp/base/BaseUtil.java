@@ -4,7 +4,6 @@ import com.y.component.DaggerUtilComponent;
 import com.y.component.UtilComponent;
 import com.y.mvp.app.App;
 import com.y.util.AppUtil;
-import com.y.util.T;
 
 import javax.inject.Inject;
 
@@ -33,10 +32,5 @@ public class BaseUtil<P extends BasePresenter> implements BaseView {
 
     protected void initInject() {
 
-    }
-
-    @Override
-    public void showError(String msg) {
-        T.show(msg);
     }
 }

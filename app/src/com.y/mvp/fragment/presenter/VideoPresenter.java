@@ -19,16 +19,16 @@ public class VideoPresenter extends RxPresenter<VideoContract.View> implements V
 
     @Override
     public void load(final int page) {
-        mVideoApi.loadHot(new CommonSubscriber<HotStraetgyEntity>() {
+        mVideoApi.loadHot(new CommonSubscriber<HotStraetgyEntity>(mView) {
+
             @Override
-            public void onNext(HotStraetgyEntity entity) {
+            public void onSuccess(HotStraetgyEntity entity) {
                 mView.loadSuccess(page,entity.getItemList());
             }
 
             @Override
-            public void onError(Throwable t) {
-                super.onError(t);
-                mView.loadFailed(page,t.getLocalizedMessage());
+            public void onFailed(String msg) {
+                mView.loadFailed(page,msg);
             }
         });
     }

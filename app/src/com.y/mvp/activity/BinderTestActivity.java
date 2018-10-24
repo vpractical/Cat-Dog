@@ -79,7 +79,7 @@ public class BinderTestActivity extends AppCompatActivity {
             return;
         }
 
-//        理解：binder同进程的服务时，不用经过IBinder.transact()共享内核空间中转，直接强转为service对象调用方法，
+//        理解：binder同进程的服务时，不用经过IBinder.transact()共享内核空间中转，直接强转为service中继承IBinder的对象调用方法，
 //        binder不同进程服务时，不能强转，因为获得的内核空间binder不是binder本身对象，是其代理对象BinderProxy.
 //        理解：IBinder.queryLocalInterface()获取远程service定义的接口对象，也只能获取本进程的，远程时返回null.
 

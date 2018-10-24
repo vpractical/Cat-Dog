@@ -9,13 +9,14 @@ import com.y.R;
 import com.y.adapter.MoreAdapter;
 import com.y.mvp.activity.ASCIIImageActivity;
 import com.y.mvp.activity.Arith1Activity;
+import com.y.mvp.activity.Arith2Activity;
 import com.y.mvp.activity.BinderTestActivity;
 import com.y.mvp.activity.NotificationTestActivity;
-import com.y.mvp.activity.nested.NestedScrollActivity;
 import com.y.mvp.activity.QuickDemo2Activity;
 import com.y.mvp.activity.QuickDemoActivity;
-import com.y.mvp.base.BaseFragment;
 import com.y.mvp.activity.form.FormActivity;
+import com.y.mvp.activity.nested.NestedScrollActivity;
+import com.y.mvp.base.BaseFragment;
 import com.y.mvp.fragment.presenter.MorePresenter;
 
 import java.util.ArrayList;
@@ -55,8 +56,7 @@ public class MoreFragment extends BaseFragment<MorePresenter> {
         mores.add(R.drawable.more_binder);
         mores.add(R.drawable.more_nested);
         mores.add(R.drawable.more_notification);
-        mores.add(R.drawable.more_ascii_img);
-        mores.add(R.drawable.more_ascii_img);
+        mores.add(R.drawable.arithmetic1);
         GridLayoutManager gManager = new GridLayoutManager(mActivity,2,GridLayoutManager.VERTICAL,false);
         rvMore.setLayoutManager(gManager);
         rvMore.setAdapter(moreAdapter = new MoreAdapter(R.layout.imageview, mores));
@@ -93,6 +93,9 @@ public class MoreFragment extends BaseFragment<MorePresenter> {
                         break;
                     case 7:
                         NotificationTestActivity.start(mActivity);
+                        break;
+                    case 8:
+                        Arith2Activity.start(mActivity);
                         break;
                     default:
                         break;

@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.View;
@@ -38,6 +39,7 @@ public class LoginActivity extends BaseActivity<EmptyPresenter> implements Empty
 
     private List<Pair<Integer, String>> loginTypes = SystemConfig.loginTypes();
     private int loginTypeIndex = -1;
+    private FragmentManager fManager = getSupportFragmentManager();
 
     @Override
     protected int getLayout() {
@@ -52,13 +54,9 @@ public class LoginActivity extends BaseActivity<EmptyPresenter> implements Empty
     @Override
     protected void init() {
         initToolbar();
-        initLoginType();
-        initListener();
-    }
-
-    private void initLoginType() {
         showLogin(SPUtil.getCommonInt(Key.LOGIN_TYPE, 0));
         showLoginSwitch();
+        initListener();
     }
 
     private void initToolbar() {
@@ -113,7 +111,8 @@ public class LoginActivity extends BaseActivity<EmptyPresenter> implements Empty
                 fragment = ByVisitFragment.newInstance();
                 break;
         }
-        loadRootFragment(R.id.container_login, fragment, false, false);
+
+        fManager.beginTransaction().replace(R.id.container_login,fragment).commit();
         mToolBar.getTitleView().setText(loginTypes.get(index).second);
         loginTypeIndex = index;
         SPUtil.putCommonInt(Key.LOGIN_TYPE, loginTypeIndex);

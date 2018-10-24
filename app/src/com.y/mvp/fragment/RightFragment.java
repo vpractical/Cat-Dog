@@ -7,12 +7,11 @@ import android.widget.Button;
 
 import com.y.R;
 import com.y.bean.Login;
-import com.y.bean.User;
 import com.y.config.Key;
 import com.y.config.SystemConfig;
 import com.y.mvp.activity.ShortCutsActivity;
-import com.y.mvp.login.LoginActivity;
 import com.y.mvp.base.BaseFragment;
+import com.y.mvp.login.LoginActivity;
 import com.y.mvp.view.AppToolbar;
 import com.y.util.AppUtil;
 import com.y.util.L;
@@ -103,7 +102,6 @@ public class RightFragment extends BaseFragment {
 
     private void loginOut() {
         Login.exit();
-        User.exit();
         AppUtil.finishAll();
         AppUtil.start(LoginActivity.class);
     }

@@ -321,7 +321,7 @@ public class ByFaceFragment extends BaseLoginFragment {
 
             @Override
             public void onAfterRender(CameraFrameData data) {
-                if(isSupportVisible()){
+                if (getUserVisibleHint()) {
                     mGLSurfaceView.getGLES2Render().draw_rect((Rect[]) data.getParams(), Color.GREEN, 2);
                 }
             }
@@ -363,7 +363,8 @@ public class ByFaceFragment extends BaseLoginFragment {
     }
 
     @Override
-    public void onSupportVisible() {
+    public void onStart() {
+        super.onStart();
         ((LoginActivity) mActivity).getToolbar().setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -381,11 +382,6 @@ public class ByFaceFragment extends BaseLoginFragment {
     }
 
     @Override
-    public void onSupportInvisible() {
-
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         mFRAbsLoop.shutdown();
@@ -398,25 +394,23 @@ public class ByFaceFragment extends BaseLoginFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == CHOOSE_REQUEST_CODE) {
-                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-                String path = null;
-                if (selectList != null && selectList.size() > 0) {
-                    LocalMedia localMedia = selectList.get(0);
-                    if (localMedia.isCompressed()) {
-                        path = localMedia.getCompressPath();
-                    } else if (localMedia.isCut()) {
-                        path = localMedia.getCutPath();
-                    } else {
-                        path = localMedia.getPath();
-                    }
+        if (requestCode == CHOOSE_REQUEST_CODE) {
+            List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+            String path = null;
+            if (selectList != null && selectList.size() > 0) {
+                LocalMedia localMedia = selectList.get(0);
+                if (localMedia.isCompressed()) {
+                    path = localMedia.getCompressPath();
+                } else if (localMedia.isCut()) {
+                    path = localMedia.getCutPath();
+                } else {
+                    path = localMedia.getPath();
                 }
+            }
 
-                if (path != null) {
-                    String filePath = ImageUtil.amendRotatePhoto(path);
-                    RegisterFaceActivity.start(mActivity,filePath);
-                }
+            if (path != null) {
+                String filePath = ImageUtil.amendRotatePhoto(path);
+                RegisterFaceActivity.start(mActivity, filePath);
             }
         }
     }

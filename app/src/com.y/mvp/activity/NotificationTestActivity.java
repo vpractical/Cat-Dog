@@ -129,7 +129,6 @@ public class NotificationTestActivity extends AppCompatActivity implements View.
             builder.setProgress(0, 0, true);
         }
 
-
         File soundFile = new File("/system/media/audio/ringtones/Luna.ogg");
         if (soundFile.exists()) {
             builder.setSound(Uri.fromFile(soundFile));

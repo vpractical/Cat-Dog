@@ -31,6 +31,7 @@ public class VideoFragment extends BaseFragment<VideoPresenter> implements Video
         return chat;
     }
 
+    private static final String TAG = "VideoFragment";
     @BindView(R.id.rv_video)
     RecyclerView rvVideo;
     private int currentPage = 1;
@@ -66,11 +67,12 @@ public class VideoFragment extends BaseFragment<VideoPresenter> implements Video
     }
 
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-        L.e("Video onLazyInitView");
-        switchView.showLoadingView();
-        load(currentPage = 1);
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser && videoList.isEmpty()){
+            switchView.showLoadingView();
+            load(currentPage = 1);
+        }
     }
 
     private void initListener(){
@@ -98,6 +100,7 @@ public class VideoFragment extends BaseFragment<VideoPresenter> implements Video
         switchView.setOnErrorReloadListener(new PageSwitchView.OnErrorReloadListener() {
             @Override
             public void onReloadClick() {
+                switchView.showLoadingView();
                 load(currentPage + 1);
             }
         });

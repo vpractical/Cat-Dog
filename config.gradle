@@ -1,7 +1,7 @@
 ext{
 
     baseUrl = [
-            debugUrl   : '"www.baidu.com"',
+            debugUrl   : '"http://172.17.151.214:8080/"',
             releaseUrl : '"www.baidu.com"',
     ]
 

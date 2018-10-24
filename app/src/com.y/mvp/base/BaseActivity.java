@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -13,14 +14,12 @@ import com.y.component.DaggerActivityComponent;
 import com.y.mvp.app.App;
 import com.y.mvp.view.AppToolbar;
 import com.y.util.KeyBoardUtil;
-import com.y.util.T;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
-import me.yokeyword.fragmentation.SupportActivity;
 
-public abstract class BaseActivity<P extends BasePresenter> extends SupportActivity implements BaseView{
+public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements BaseView{
 
     @Inject
     protected P mPresenter;
@@ -56,11 +55,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends SupportActiv
     protected void onDestroy() {
         super.onDestroy();
         detach();
-    }
-
-    @Override
-    public void showError(String msg) {
-        T.show(msg);
     }
 
     protected ActivityComponent getActivityComponent(){

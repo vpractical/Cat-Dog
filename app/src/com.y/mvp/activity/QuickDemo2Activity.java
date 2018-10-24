@@ -105,22 +105,23 @@ public class QuickDemo2Activity extends BaseActivity {
 
     private void load(final int page) {
         Quick.getData(page, new CommonSubscriber<List<Quick>>() {
+
             @Override
-            public void onNext(List<Quick> list) {
+            public void onSuccess(List<Quick> list) {
                 boolean isRefresh = page == 1;
 
                 if (isRefresh) {
                     mData.clear();
                 }
 
-                    //上拉加载
-                    demoAdapter.addData(list);
-                    currentPage = page;
-                    if (list.size() < 10) {
-                        demoAdapter.loadMoreEnd(isRefresh);
-                    } else {
-                        demoAdapter.loadMoreComplete();
-                    }
+                //上拉加载
+                demoAdapter.addData(list);
+                currentPage = page;
+                if (list.size() < 10) {
+                    demoAdapter.loadMoreEnd(isRefresh);
+                } else {
+                    demoAdapter.loadMoreComplete();
+                }
 
                 if (mData.isEmpty()) {
                     //...showEmpty()
@@ -130,12 +131,10 @@ public class QuickDemo2Activity extends BaseActivity {
 
                 demoAdapter.setEnableLoadMore(true);
                 swipeView.setRefreshing(false);
-
             }
 
             @Override
-            public void onError(Throwable t) {
-                super.onError(t);
+            public void onFailed(String msg) {
                 demoAdapter.setEnableLoadMore(true);
                 swipeView.setRefreshing(false);
 

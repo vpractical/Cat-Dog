@@ -1,7 +1,8 @@
 package com.y.api;
 
 import com.y.bean.HotStraetgyEntity;
-import com.y.bean.Login;
+import com.y.bean.response.LoginRes;
+import com.y.bean.response.RegisterRes;
 import com.y.config.Const;
 
 import java.util.Map;
@@ -9,7 +10,7 @@ import java.util.Map;
 import io.reactivex.Flowable;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -24,8 +25,12 @@ public interface ApiService {
     Flowable<String> checkUpdate(@Url String url);
 
     @FormUrlEncoded
-    @POST(Const.LOGIN_URL)
-    Flowable<Login> login(@Field("phone") String phone, @Field("code") String code);
+    @POST(Const.LOGIN_USER_URL)
+    Flowable<LoginRes> login(@FieldMap Map<String,String> map);
+
+    @FormUrlEncoded
+    @POST(Const.REGISTER_USER_URL)
+    Flowable<RegisterRes> register(@FieldMap Map<String,String> map);
 
     @Streaming
     @GET

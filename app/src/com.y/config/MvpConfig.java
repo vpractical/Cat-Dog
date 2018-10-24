@@ -62,8 +62,8 @@ public class MvpConfig implements ConfigModule {
                     @Override
                     public void configRetrofit(Retrofit.Builder builder) {
                         //retrofit  信息配置
-                        //builder.addConverterFactory(ScalarsConverterFactory.create());
-                        // .addConverterFactory(GsonConverterFactory.create())
+//                        builder.addConverterFactory(ScalarsConverterFactory.create());
+//                        builder.addConverterFactory(GsonConverterFactory.create());
                     }
                 })
                 .okHttpConfiguration(new ClientModule.IOkHttpConfiguration() {
@@ -77,5 +77,6 @@ public class MvpConfig implements ConfigModule {
 
 
     }
+
 
 }

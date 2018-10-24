@@ -8,13 +8,21 @@ public interface LoginContract {
 
 
     interface View extends BaseView {
-        void LoginSuccess();
+        void loginSuccess();
+    }
+
+    interface PwdView extends View{
+        void registerFailed(String msg);
     }
 
     interface Presenter extends BasePresenter<View> {
         //登录
         void loginByCode(String phone,String code);
-        void loginByPwd(String phone,String pwd);
+        void loginByPwd(String name,String pwd);
+        //忘记密码
+        void forgetPwd();
+        //账号密码注册
+        void registerPwd(String name,String pwd);
         void loginByFace();
         void loginByVisit(String avatar,String phone,String nick);
         void loginByThird(UMLoginUtil umLogin);

@@ -1,8 +1,5 @@
 package com.y.mvp.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-
 import com.y.R;
 import com.y.mvp.base.BaseFragment;
 import com.y.mvp.fragment.presenter.ChatPresenter;
@@ -28,12 +25,6 @@ public class ChatFragment extends BaseFragment<ChatPresenter> {
     @Override
     protected void init() {
         L.e("Chat init()");
-    }
-
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-        L.e("Chat onLazyInitView()");
     }
 
 }

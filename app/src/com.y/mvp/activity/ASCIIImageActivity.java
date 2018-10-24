@@ -19,6 +19,7 @@ import com.y.mvp.base.BaseActivity;
 import com.y.mvp.util.persenter.EmptyContract;
 import com.y.mvp.util.persenter.EmptyPresenter;
 import com.y.mvp.view.ShareDialog;
+import com.y.route.Route;
 import com.y.util.ImageUtil;
 import com.y.util.L;
 import com.y.util.PermissionUtil;
@@ -29,6 +30,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
+@Route(path = "app/ascii")
 public class ASCIIImageActivity extends BaseActivity<EmptyPresenter> implements EmptyContract.View {
 
     public static void start(Context context) {

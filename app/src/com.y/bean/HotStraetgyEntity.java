@@ -1,12 +1,14 @@
 package com.y.bean;
 
+import com.y.mvp.converter.BaseRes;
+
 import java.util.List;
 
 /**
  * Created by xhb on 2016/3/3.
  * 热门排行实体类
  */
-public class HotStraetgyEntity {
+public class HotStraetgyEntity extends BaseRes {
 
 
     /**

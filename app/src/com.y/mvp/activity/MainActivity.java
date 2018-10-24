@@ -88,7 +88,6 @@ public class MainActivity extends BaseActivity<MainPresenter> {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    User.exit();
                     Login.exit();
                     AppUtil.finishAll();
                     AppUtil.start(LoginActivity.class);

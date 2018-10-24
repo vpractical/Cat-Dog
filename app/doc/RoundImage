@@ -1,0 +1,21 @@
+导入依赖不用多说
+compile 'com.makeramen:roundedimageview:2.3.0' 
+
+xml中属性：
+riv_border_width： 边框宽度
+riv_border_color： 边框颜色
+riv_oval： 是否圆形
+riv_corner_radius： 圆角弧度
+riv_corner_radius_top_left：左上角弧度
+riv_corner_radius_top_right： 右上角弧度
+riv_corner_radius_bottom_left：左下角弧度
+riv_corner_radius_bottom_right：右下角弧度
+
+在xml布局中实现布局
+<com.makeramen.roundedimageview.RoundedImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/avatar"
+        app:riv_border_color="#333333"
+        app:riv_border_width="2dp"
+        app:riv_oval="true" />

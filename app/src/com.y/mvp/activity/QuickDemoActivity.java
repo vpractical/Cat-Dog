@@ -180,8 +180,9 @@ public class QuickDemoActivity extends BaseActivity {
 
     private void load(final int page) {
         Quick.getData(page, new CommonSubscriber<List<Quick>>() {
+
             @Override
-            public void onNext(List<Quick> list) {
+            public void onSuccess(List<Quick> list) {
                 boolean isRefresh = page == 1;
 
                 if (isRefresh) {
@@ -215,12 +216,10 @@ public class QuickDemoActivity extends BaseActivity {
                 demoAdapter.setEnableLoadMore(true);
                 demoAdapter.setUpFetching(false);
                 swipeView.setRefreshing(false);
-
             }
 
             @Override
-            public void onError(Throwable t) {
-                super.onError(t);
+            public void onFailed(String msg) {
                 demoAdapter.setEnableLoadMore(true);
                 demoAdapter.setUpFetching(false);
                 swipeView.setRefreshing(false);

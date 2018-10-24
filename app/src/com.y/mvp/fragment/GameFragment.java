@@ -15,6 +15,7 @@ import com.y.mvp.fragment.presenter.GamePresenter;
 import com.y.mvp.activity.game.astar.AStarActivity;
 import com.y.mvp.activity.game.party.PartyActivity;
 import com.y.mvp.activity.game.plus.PlusActivity;
+import com.y.route.Router;
 import com.y.util.ColorUtil;
 
 import butterknife.BindView;
@@ -78,6 +79,42 @@ public class GameFragment extends BaseFragment<GamePresenter> {
             @Override
             public void onClick(View v) {
                 start(RoleActivity.class);
+            }
+        });
+
+        //视图
+        TextView tvView = tv();
+        tvView.setText("视图");
+        tvView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                start(RoleActivity.class);
+            }
+        });
+
+        //书籍
+        TextView tvBook = tv();
+        tvBook.setText("书籍");
+        tvBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Router.getInstance()
+                        .with(mActivity)
+                        .target("book/main")
+                        .start();
+            }
+        });
+
+        //收藏
+        TextView tvStore = tv();
+        tvStore.setText("收藏");
+        tvStore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Router.getInstance()
+                        .with(mActivity)
+                        .target("store/main")
+                        .start();
             }
         });
     }
