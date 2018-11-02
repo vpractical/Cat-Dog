@@ -1,1 +1,1 @@
-include ':app', ':mvp_library', ':util_library'
+include ':app', ':mvp_library', ':util_library',':imageloader',':vitamio', ':Book', ':Store', ':router', ':router-annotations', ':router-compiler'

@@ -1,22 +1,22 @@
 ext{
 
     baseUrl = [
-            debugUrl   : '"www.baidu.com"',
-            releaseUrl : '"www.baidu.com"',
+            debugUrl   : '"http://172.17.151.214:8080/"',
+            releaseUrl : '"http://www.baidu.com"',
     ]
 
     android = [
-            applicationId     : "com.y.cat_dog",
-            compileSdkVersion : 27,
-            minSdkVersion     : 21,
-            targetSdkVersion  : 27,
+            applicationId     : "com.y.catdog",
+            compileSdkVersion : 28,
+            minSdkVersion     : 19,
+            targetSdkVersion  : 28,
             versionCode       : project.VERSION_CODE as int,
             versionName       : project.VERSION_NAME,
     ]
 
 
     libsVersion = [
-            libraryVersion = "27.1.1"
+            libraryVersion = "28.0.0"
     ]
 
     dependencies = [

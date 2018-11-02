@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:gravity="center_vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    >
+
+    <ImageView
+        android:id="@+id/iv_shortcut_icon"
+        android:layout_width="28dp"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        tools:src="@drawable/cut_ascii"
+        />
+
+    <TextView
+        android:id="@+id/tv_shortcut_name"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp14"
+        tools:text="菜单"
+        android:maxLines="1"
+        android:layout_marginStart="10dp"
+        />
+
+    <ImageView
+        android:id="@+id/iv_shortcut_sure"
+        android:layout_width="35dp"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/sure_dark"
+        />
+
+</LinearLayout>

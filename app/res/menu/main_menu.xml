@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_scan"
+        android:icon="@drawable/scan_white"
+        android:title="扫一扫"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_qrcode"
+        android:icon="@drawable/qrcode_white"
+        android:title="二维码"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/setting_white"
+        android:orderInCategory="100"
+        android:title="Setting"
+        app:showAsAction="never"
+        />
+
+    <!--ifRoom 表示在屏幕空间足够的情况下显示在Toolbar中，不够的话就显示在菜单中-->
+    <!--never 表示永远不显示在Toolbar中，而是一直显示在菜单中-->
+    <!--always 表示永远显示在Toolbar中，如果屏幕空间不够则不显示-->
+</menu>

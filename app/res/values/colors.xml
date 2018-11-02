@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#8994AA</color>
+    <color name="colorPrimaryDark">#8994AA</color>
+    <color name="colorAccent">#8994AA</color>
+
+    <!--默认字体颜色-->
+    <color name="defaultTextColor">#666666</color>
+    <color name="textDefault">#666666</color>
+    <color name="textLight">#99999999</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="background">#F5F7FA</color>
+    <color name="transparent">#00000000</color>
+    <color name="red_base">#ED5565</color>
+
+    <color name="background_30black">#30000000</color>
+    <color name="background_30white">#30FFFFFF</color>
+    <color name="background_90white">#90FFFFFF</color>
+</resources>

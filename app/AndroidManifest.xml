@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.y">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!--闪光灯-->
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <!--震动-->
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <!--调用锁屏界面-->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    <!--8.0进行应用内升级-->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <application
+        android:name=".CatDogApplication"
+        android:allowBackup="true"
+        android:configChanges="keyboardHidden|orientation"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/logo_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".mvp.activity.WelcomeActivity"
+            android:theme="@style/FullTheme"
+            android:icon="@mipmap/logo"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts"/>
+        </activity>
+        <activity android:name=".mvp.login.LoginActivity" />
+        <activity android:name=".mvp.login.RegisterFaceActivity" />
+        <activity android:name=".mvp.activity.MainActivity" />
+        <activity
+            android:name=".mvp.activity.game.astar.AStarActivity"
+            android:theme="@style/FullTheme" />
+        <activity
+            android:name=".mvp.activity.game.party.PartyActivity"
+            android:theme="@style/FullTheme" />
+        <activity
+            android:name=".mvp.activity.game.plus.PlusActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".mvp.activity.RoleActivity" />
+        <activity
+            android:name=".mvp.activity.video.VideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenLayout|screenSize" />
+        <activity
+            android:name=".mvp.activity.ASCIIImageActivity"
+            android:icon="@drawable/visit"
+            android:label="@string/app_name_second"
+            android:launchMode="singleTask"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".mvp.activity.Arith1Activity" />
+        <activity android:name=".mvp.activity.QuickDemoActivity" />
+        <activity android:name=".mvp.activity.QuickDemo2Activity" />
+        <activity android:name="com.y.mvp.activity.form.FormActivity" />
+
+        <activity android:name=".mvp.activity.BinderTestActivity"
+            />
+
+        <activity android:name=".mvp.activity.ShortCutsActivity"/>
+
+
+        <!--umeng-->
+
+        <activity
+            android:name="com.umeng.socialize.media.WBShareCallBackActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:exported="false"
+            >
+        </activity>
+        <activity android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            >
+
+        </activity>
+        <activity
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:launchMode="singleTask"
+            android:name="com.sina.weibo.sdk.share.WbShareTransActivity">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".catdog.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
+            android:name=".catdog.apshare.ShareEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
+            android:name=".catdog.ddshare.DDShareActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1107733637" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+        <activity android:name=".mvp.activity.nested.NestedScrollActivity"
+            android:permission="nested"
+            />
+
+        <activity android:name=".mvp.activity.NotificationTestActivity"/>
+
+
+        <!--receiver-->
+
+        <receiver android:name=".widget.WeatherWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/weather_widget_info" />
+        </receiver>
+
+
+        <service android:name=".service.WeatherService"/>
+        <service android:name=".service.BinderService"/>
+        <!--exported="true"允许被外界访问，以及访问权限-->
+        <service android:name=".service.BinderRemoteService"
+            android:process=":binderTest"
+            android:exported="true"
+            android:permission="cat.permission.dog"
+            />
+
+        <!--mvp框架的配置-->
+        <meta-data
+            android:name="com.y.config.MvpConfig"
+            android:value="ConfigModule" />
+
+    </application>
+
+</manifest>
