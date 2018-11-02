@@ -7,7 +7,6 @@ import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.util.Pair;
 import android.view.Menu;
@@ -19,13 +18,14 @@ import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 import com.umeng.socialize.UMShareAPI;
 import com.y.R;
-import com.y.config.SystemConfig;
 import com.y.config.Key;
+import com.y.config.SystemConfig;
 import com.y.mvp.base.BaseActivity;
 import com.y.mvp.util.persenter.EmptyContract;
 import com.y.mvp.util.persenter.EmptyPresenter;
 import com.y.mvp.view.AppToolbar;
-import com.y.util.PermissionUtil;
+import com.y.permissionlib.PermCat;
+import com.y.permissionlib.PermissionCat;
 import com.y.util.SPUtil;
 
 import java.util.List;
@@ -36,6 +36,8 @@ public class LoginActivity extends BaseActivity<EmptyPresenter> implements Empty
         Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
     }
+
+    private static final String PERMISSION_CAMERA = Manifest.permission.CAMERA;
 
     private List<Pair<Integer, String>> loginTypes = SystemConfig.loginTypes();
     private int loginTypeIndex = -1;
@@ -96,7 +98,8 @@ public class LoginActivity extends BaseActivity<EmptyPresenter> implements Empty
                 fragment = ByPwdFragment.newInstance();
                 break;
             case SystemConfig.LOGIN_BY_FACE:
-                if (!permissionCheck()) {
+                if(!PermissionCat.has(this,PERMISSION_CAMERA)){
+                    requestCameraPermission();
                     return;
                 }
                 fragment = ByFaceFragment.newInstance();
@@ -118,34 +121,16 @@ public class LoginActivity extends BaseActivity<EmptyPresenter> implements Empty
         SPUtil.putCommonInt(Key.LOGIN_TYPE, loginTypeIndex);
     }
 
-    public boolean permissionCheck() {
-        String perm = Manifest.permission.CAMERA;
-        if (!PermissionUtil.getInstance().has(mActivity, perm)) {
-            PermissionUtil.getInstance().callback(new PermissionUtil.PermissionCallback() {
-                @Override
-                public void onGranted(List<String> perms) {
-                    if (permissionCheck()) {
-                        showLogin(SystemConfig.LOGIN_BY_FACE);
-                    }
-                }
-
-                @Override
-                public void onDenied(List<String> perms) {
-                    PermissionUtil.getInstance().neverAsk(mActivity, "权限被禁止，请设置", perms);
-                }
-
-                @Override
-                public void onSettingGranted() {
-                    if (permissionCheck()) {
-                        showLogin(SystemConfig.LOGIN_BY_FACE);
-                    }
-                }
-            }).request(mActivity, "刷脸需相机权限，请允许", perm);
+    @PermCat(PERMISSION_CAMERA)
+    public boolean requestCameraPermission(){
+        if(PermissionCat.has(this,PERMISSION_CAMERA)){
+            showLogin(SystemConfig.LOGIN_BY_FACE);
+            return true;
+        }else{
+            PermissionCat.request("面部识别需要使用相机",this,null,PERMISSION_CAMERA);
             return false;
         }
-        return true;
     }
-
 
     /**
      * 切换登录方式
@@ -261,16 +246,10 @@ public class LoginActivity extends BaseActivity<EmptyPresenter> implements Empty
         });
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionUtil.getInstance().onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        PermissionUtil.getInstance().onActivityResult(requestCode);
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 

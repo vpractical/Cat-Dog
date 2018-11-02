@@ -3,6 +3,7 @@ package com.y.mvp.base;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -13,6 +14,7 @@ import com.y.component.ActivityComponent;
 import com.y.component.DaggerActivityComponent;
 import com.y.mvp.app.App;
 import com.y.mvp.view.AppToolbar;
+import com.y.permissionlib.PermissionCat;
 import com.y.util.KeyBoardUtil;
 
 import javax.inject.Inject;
@@ -93,4 +95,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         return super.dispatchTouchEvent(ev);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionCat.onRequestPermissionsResult(this,permissions, grantResults);
+    }
 }

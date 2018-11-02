@@ -13,6 +13,7 @@ import android.view.ViewParent;
 import com.y.component.DaggerFragmentComponent;
 import com.y.component.FragmentComponent;
 import com.y.mvp.app.App;
+import com.y.permissionlib.PermissionCat;
 import com.y.util.L;
 
 import javax.inject.Inject;
@@ -100,4 +101,10 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
     protected abstract void init();
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionCat.onRequestPermissionsResult(this,permissions, grantResults);
+    }
 }

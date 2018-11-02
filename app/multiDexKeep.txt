@@ -7,5 +7,3 @@ android/support/multidex/MultiDex$14.class
 android/support/multidex/MultiDex$19.class
 android/support/multidex/ZipUtil.class
 android/support/multidex/ZipUtil$CentralDirectory.class
-
-com.y.book.BookActivity

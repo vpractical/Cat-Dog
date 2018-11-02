@@ -15,8 +15,13 @@ android {
         multiDexKeepProguard file("multiDexKeep.pro") //分包时，将部分包放入主dex
         ndk {
             // 设置支持的SO库架构
-            abiFilters 'armeabi', 'x86', 'armeabi-v7a'//,'x86_64', 'arm64-v8a'
+            abiFilters 'armeabi'// 'x86','x86_64', 'armeabi-v7a', 'arm64-v8a'
         }
+        javaCompileOptions {
+            annotationProcessorOptions { includeCompileClasspath = true }
+        }
+        //只在打包后的res里保留特定语言，禁止其他语言
+        resConfigs('zh-rCN')
     }
 
     signingConfigs {
@@ -50,14 +55,15 @@ android {
             buildConfigField("String", "API_URL", rootProject.ext.baseUrl.debugUrl)
         }
         release {
+            // 进行资源压缩
+            shrinkResources false
+            //混淆
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.production
             buildConfigField("String", "API_URL", rootProject.ext.baseUrl.releaseUrl)
             // 进行压缩优化
-            zipAlignEnabled true
-            // 进行资源优化，移除无用的resource文件  跟快速编译不兼容
-            // shrinkResources true
+//            zipAlignEnabled true
             //修改apk包名
             applicationVariants.all { variant ->
                 variant.outputs.all { output ->
@@ -88,6 +94,7 @@ dependencies {
     implementation project(':vitamio')
     implementation project(':util_library')
     implementation project(':router')
+    implementation project(':router-compiler')
     if(!IsMoudle.toBoolean()){
         implementation project(':Book')
         implementation project(':Store')

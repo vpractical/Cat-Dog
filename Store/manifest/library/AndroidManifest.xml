@@ -3,7 +3,7 @@
     package="com.y.store">
 
     <application>
-        <activity android:name="com.y.store.StoreActivity"/>
+        <activity android:name=".StoreActivity"/>
     </application>
 
 </manifest>

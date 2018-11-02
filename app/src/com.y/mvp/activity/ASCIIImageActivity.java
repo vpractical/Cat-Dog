@@ -6,7 +6,7 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
+import android.os.Build;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,10 +19,10 @@ import com.y.mvp.base.BaseActivity;
 import com.y.mvp.util.persenter.EmptyContract;
 import com.y.mvp.util.persenter.EmptyPresenter;
 import com.y.mvp.view.ShareDialog;
-import com.y.route.Route;
+import com.y.permissionlib.PermCat;
+import com.y.permissionlib.PermissionCat;
+import com.y.router_annotations.Route;
 import com.y.util.ImageUtil;
-import com.y.util.L;
-import com.y.util.PermissionUtil;
 import com.y.util.T;
 import com.y.util.UMShareUtil;
 
@@ -44,7 +44,11 @@ public class ASCIIImageActivity extends BaseActivity<EmptyPresenter> implements 
      */
     public static void start(Activity activity, View view) {
         Intent intent = new Intent(activity, ASCIIImageActivity.class);
-        activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity, view, "more_item").toBundle());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity, view, "more_item").toBundle());
+        }else{
+            activity.startActivity(intent);
+        }
     }
 
 
@@ -58,6 +62,7 @@ public class ASCIIImageActivity extends BaseActivity<EmptyPresenter> implements 
      * 选择照片需要的权限
      */
     private String[] permsNeed = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private static final String PERMISSION_CAMERA = Manifest.permission.CAMERA;
 
     @Override
     protected int getLayout() {
@@ -117,47 +122,18 @@ public class ASCIIImageActivity extends BaseActivity<EmptyPresenter> implements 
         });
     }
 
+    @PermCat(PERMISSION_CAMERA)
     public void chooseImage() {
-        if (!PermissionUtil.getInstance().has(mActivity, permsNeed)) {
-            PermissionUtil.getInstance().callback(new PermissionUtil.PermissionCallback() {
-                @Override
-                public void onGranted(List<String> perms) {
-                    L.e("onPermissionsGranted : " + " size : " + perms.size());
-                    if (perms.size() == permsNeed.length) {
-                        chooseImage();
-                    }
-                }
-
-                @Override
-                public void onDenied(List<String> perms) {
-                    L.e("onPermissionsDenied : " + " size : " + perms.size());
-                    PermissionUtil.getInstance().neverAsk(mActivity, "权限被禁止，请允许", perms);
-                }
-
-                @Override
-                public void onSettingGranted() {
-                    L.e("从设置界面回来");
-                    if (PermissionUtil.getInstance().has(mActivity, permsNeed)) {
-                        chooseImage();
-                    }
-                }
-            }).request(mActivity, "字符画需要相机和存储权限，请允许", permsNeed);
-        } else {
-            L.e("有权限，进入页面");
+        if (PermissionCat.has(this, permsNeed)) {
             ImageUtil.chooseImage(mActivity, CHOOSE_REQUEST_CODE);
+        } else {
+            PermissionCat.request("字符画需要这些权限", this, null, permsNeed);
         }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionUtil.getInstance().onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        PermissionUtil.getInstance().onActivityResult(requestCode);
         if (resultCode == RESULT_OK) {
             if (requestCode == CHOOSE_REQUEST_CODE) {
                 List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
