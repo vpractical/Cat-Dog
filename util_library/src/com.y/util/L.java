@@ -85,8 +85,8 @@ public class L {
     static {
         FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
                 .showThreadInfo(false)  // 是否显示线程信息
-                .methodCount(3)
-                .methodOffset(0)
+                .methodCount(1)
+                .methodOffset(1)
                 .logStrategy(new LogStrategy() {
                     @Override
                     public void log(int priority, @Nullable String tag, @NonNull String message) {

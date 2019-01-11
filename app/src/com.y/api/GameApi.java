@@ -1,7 +1,10 @@
 package com.y.api;
 
+import com.y.bean.response.RoleRes;
 import com.y.config.Const;
 import com.y.mvp.base.LoadingDialog;
+import com.y.mvp.observer.CommonSubscriber;
+import com.y.mvp.observer.Transformer;
 
 import javax.inject.Inject;
 
@@ -27,6 +30,13 @@ public class GameApi {
                 .downloadRole(Const.GAME_ROLE_DOWNLOAD_URL)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
+                .subscribeWith(subscriber);
+    }
+
+    public CommonSubscriber<RoleRes> getAllRole(CommonSubscriber<RoleRes> subscriber) {
+        return mRetrofit.create(ApiService.class)
+                .getAllRole(Const.GET_ROLE_FROM_SERVER_URL)
+                .compose(Transformer.<RoleRes>switchSchedulers())
                 .subscribeWith(subscriber);
     }
 }

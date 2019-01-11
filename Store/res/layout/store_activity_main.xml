@@ -1,26 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".StoreActivity"
+    tools:context=".activity.StoreActivity"
     >
 
-    <Button
-        android:id="@+id/btnApp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="主app"
-        />
-    <Button
-        android:id="@+id/btnBook"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Book"
-        android:textColor="#40ff0000"
-        />
+    <!--<LinearLayout-->
+        <!--android:id="@+id/storeBehaviorTitle"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/uc_title_height"-->
+        <!--android:gravity="center"-->
+        <!--app:layout_behavior="@string/uc_title_behavior"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:background="#f8348544"-->
+        <!--&gt;-->
 
-</LinearLayout>
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="仿uc主页"-->
+            <!--/>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/storeBehaviorHeader"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="260dp"-->
+        <!--android:background="@drawable/store_behavior_bg"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="vertical"-->
+        <!--app:layout_behavior="@string/uc_head_behavior"-->
+        <!--&gt;-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/storeBehaviorTab"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/uc_tab_height"-->
+        <!--android:orientation="horizontal"-->
+        <!--app:layout_behavior="@string/uc_tab_behavior"-->
+        <!--android:background="#fff"-->
+        <!--&gt;-->
+
+    <!--</LinearLayout>-->
+
+    <!--app:layout_behavior="@string/uc_content_behavior"-->
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vpStoreMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        >
+
+    </android.support.v4.view.ViewPager>
+
+
+</android.support.design.widget.CoordinatorLayout>

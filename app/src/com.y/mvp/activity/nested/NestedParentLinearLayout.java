@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
-public class NestedParentLinearLayout extends LinearLayout {
+public class NestedParentLinearLayout extends LinearLayout{
     private static final String TAG = "Parent";
 
     public NestedParentLinearLayout(Context context) {

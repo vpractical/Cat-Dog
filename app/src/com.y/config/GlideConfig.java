@@ -44,7 +44,6 @@ public class GlideConfig implements ILStrategy {
         }else {
             throw new NullPointerException("library说明.with(?)");
         }
-
         RequestBuilder rb;
         if(builder.targetUrl != null){
             rb = rm.load(builder.targetUrl);
@@ -61,9 +60,7 @@ public class GlideConfig implements ILStrategy {
         }else{
             throw new NullPointerException("library说明.load(?)");
         }
-
         rb = rb.apply(op);
-
         if(builder.targetView != null){
             rb.into(builder.targetView);
         }else{

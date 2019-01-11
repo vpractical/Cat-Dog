@@ -10,6 +10,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!--应用主要字体颜色-->
         <item name="android:textColorPrimary">@color/defaultTextColor</item>
+    </style>
+
+    <style name="GuideTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@drawable/bg_window</item>
     </style>
 

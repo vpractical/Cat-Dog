@@ -30,16 +30,16 @@ public abstract class CommonSubscriber<W> extends ResourceSubscriber<W> {
     @Override
     public void onNext(W w) {
         if (mView == null) return;
-        if(w instanceof BaseRes){
+        if (w instanceof BaseRes) {
             BaseRes baseRes = (BaseRes) w;
 
-            if(baseRes.getCode() == 0){
-               //三方接口
+            if (baseRes.code == 0) {
+                //三方接口
                 onSuccess(w);
                 return;
             }
 
-            if (baseRes.getCode() == 200) {
+            if (baseRes.code == 200) {
                 onSuccess(w);
             } else {
                 onFailed(baseRes.getMsg());

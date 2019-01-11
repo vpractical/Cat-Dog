@@ -43,7 +43,7 @@ public class RoleAdapter extends PagerAdapter {
         iv.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 ImageLoader
                 .with(activity)
-                .url(item.path)
+                .url(item.url)
                 .placeHolder(R.drawable.chrysanthemum_1)
                 .errorHolder(R.drawable.chat_dark)
                 .skipMemoryCache(false)

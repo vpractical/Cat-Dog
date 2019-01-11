@@ -26,6 +26,11 @@ public class Const {
     public static final String UNREGISTER_USER_URL = "user/unregister";
 
     /**
+     * 从server获取所有立绘
+     */
+    public static final String GET_ROLE_FROM_SERVER_URL = "gc/all";
+
+    /**
      * 立绘本地存储目录
      */
     public static final String PATH_GAME_ROLE_DIR = "/game/role/";

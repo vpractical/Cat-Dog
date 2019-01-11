@@ -3,7 +3,9 @@
     package="com.y.store">
 
     <application>
-        <activity android:name=".StoreActivity"/>
+        <activity android:name=".activity.StoreActivity"/>
+        <activity android:name=".activity.BehaviorTestActivity"/>
+        <activity android:name=".activity.BehaviorTestActivity2"/>
     </application>
 
 </manifest>

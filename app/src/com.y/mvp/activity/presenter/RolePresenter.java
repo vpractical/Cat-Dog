@@ -3,9 +3,11 @@ package com.y.mvp.activity.presenter;
 
 import com.y.api.GameApi;
 import com.y.bean.Role;
+import com.y.bean.response.RoleRes;
 import com.y.config.Const;
 import com.y.mvp.base.RxPresenter;
 import com.y.mvp.download.DownloadObserver;
+import com.y.mvp.observer.CommonSubscriber;
 import com.y.util.AppUtil;
 
 import java.io.File;
@@ -38,7 +40,7 @@ public class RolePresenter extends RxPresenter<RoleContract.View> implements Rol
     @Override
     public void checkCache() {
         if (roleDir.exists() && roleDir.list().length > 1) {
-            read();
+            readFromLocal();
         } else {
             try {
                 if(!roleDir.exists()){
@@ -90,7 +92,7 @@ public class RolePresenter extends RxPresenter<RoleContract.View> implements Rol
     }
 
     @Override
-    public void read() {
+    public void readFromLocal() {
         String[] imgs = roleDir.list(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
@@ -104,10 +106,28 @@ public class RolePresenter extends RxPresenter<RoleContract.View> implements Rol
         List<Role> roles = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             Role role = new Role();
-            role.path = roleDir + "/" + imgs[i];
+            role.url = roleDir + "/" + imgs[i];
             roles.add(role);
         }
 
         mView.show(roles);
+    }
+
+    @Override
+    public void readFromServer() {
+        addSubscribe("readFromServer",
+                mGameApi.getAllRole(new CommonSubscriber<RoleRes>(mView) {
+                    @Override
+                    public void onSuccess(RoleRes data) {
+                        List<Role> list = data.data;
+                        mView.show(list);
+                    }
+
+                    @Override
+                    public void onFailed(String msg) {
+                        mView.error(msg);
+                    }
+                })
+                );
     }
 }

@@ -8,9 +8,9 @@ import butterknife.ButterKnife
 import com.y.permissionlib.PermissionCat
 import com.y.util.KeyBoardUtil
 
-abstract class BaseActivity2 : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
-    protected lateinit var mActivity:BaseActivity2
+    protected lateinit var mActivity:BaseActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +25,7 @@ abstract class BaseActivity2 : AppCompatActivity() {
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if(ev?.action == MotionEvent.ACTION_DOWN){
-            val v: View = currentFocus;
+            val v: View = currentFocus
             if (KeyBoardUtil.isShouldHideKeyboard(v, ev)) {
                 KeyBoardUtil.hideSoftInput(v,mActivity)
             }

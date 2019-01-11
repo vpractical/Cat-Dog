@@ -3,6 +3,7 @@ package com.y.api;
 import com.y.bean.HotStraetgyEntity;
 import com.y.bean.response.LoginRes;
 import com.y.bean.response.RegisterRes;
+import com.y.bean.response.RoleRes;
 import com.y.config.Const;
 
 import java.util.Map;
@@ -44,4 +45,7 @@ public interface ApiService {
 
     @GET
     Call<ResponseBody> checkWeather2(@Url String url, @QueryMap Map<String,String> map, @Header("Authorization") String appCode);
+
+    @GET
+    Flowable<RoleRes> getAllRole(@Url String url);
 }

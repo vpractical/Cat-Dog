@@ -13,6 +13,7 @@ public interface RoleContract {
         void emptyCache();
         void downLoading(int progress,String size);
         void show(List<Role> list);
+        void error(String msg);
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -20,7 +21,8 @@ public interface RoleContract {
         void download();
         void zipParse();
         void save();
-        void read();
+        void readFromLocal();
+        void readFromServer();
 
     }
 

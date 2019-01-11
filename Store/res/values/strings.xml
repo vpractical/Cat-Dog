@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Store</string>
+    <string name="simple_behavior">com.y.store.activity.behavior.SimpleBehavior</string>
+    <string name="simple2_behavior">com.y.store.activity.behavior.SimpleBehavior2</string>
+    <string name="recyclerview_behavior">com.y.store.activity.behavior.RecyclerViewBehavior</string>
+
+    <string name="uc_content_behavior">com.y.store.activity.behavior.UcContentBehavior</string>
+    <string name="uc_title_behavior">com.y.store.activity.behavior.UcTitleBehavior</string>
+    <string name="uc_tab_behavior">com.y.store.activity.behavior.UcTabBehavior</string>
+    <string name="uc_head_behavior">com.y.store.activity.behavior.UcHeadBehavior</string>
 </resources>

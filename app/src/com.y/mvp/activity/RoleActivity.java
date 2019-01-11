@@ -56,11 +56,21 @@ public class RoleActivity extends BaseActivity<RolePresenter> implements RoleCon
         initToolbar();
         roleAdapter = new RoleAdapter(mActivity, roleList);
         vpRole.setAdapter(roleAdapter);
-        mPresenter.read();
+        mPresenter.readFromServer();
+        initListener();
     }
 
     private void initToolbar() {
         mToolBar.getTitleView().setText("手绘");
+    }
+
+    private void initListener(){
+        switchView.setOnErrorReloadListener(new PageSwitchView.OnErrorReloadListener() {
+            @Override
+            public void onReloadClick() {
+                mPresenter.readFromServer();
+            }
+        });
     }
 
     @Override
@@ -97,6 +107,19 @@ public class RoleActivity extends BaseActivity<RolePresenter> implements RoleCon
     public void show(List<Role> list) {
         roleList.clear();
         roleList.addAll(list);
+
+        if(roleList.isEmpty()){
+            switchView.showEmptyView();
+        }else{
+            switchView.showDataView(vpRole);
+        }
+
         roleAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void error(String msg) {
+        T.show(msg);
+        switchView.showErrorView();
     }
 }

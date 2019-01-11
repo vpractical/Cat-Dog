@@ -24,9 +24,9 @@ import java.util.List;
 import butterknife.BindView;
 import io.vov.vitamio.Vitamio;
 
-public class VideoFragment extends BaseFragment<VideoPresenter> implements VideoContract.View{
+public class VideoFragment extends BaseFragment<VideoPresenter> implements VideoContract.View {
 
-    public static VideoFragment newInstance(){
+    public static VideoFragment newInstance() {
         VideoFragment chat = new VideoFragment();
         return chat;
     }
@@ -58,29 +58,27 @@ public class VideoFragment extends BaseFragment<VideoPresenter> implements Video
 
     @Override
     protected void init() {
-        LinearLayoutManager llM = new LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager llM = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
         rvVideo.setLayoutManager(llM);
-        videoAdapter = new VideoAdapter(R.layout.item_video_hot,videoList);
+        videoAdapter = new VideoAdapter(R.layout.item_video_hot, videoList);
         videoAdapter.setUpFetchEnable(true);
         rvVideo.setAdapter(videoAdapter);
         initListener();
+        switchView.showLoadingView();
+        load(currentPage = 1);
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser && videoList.isEmpty()){
-            switchView.showLoadingView();
-            load(currentPage = 1);
-        }
     }
 
-    private void initListener(){
+    private void initListener() {
         videoAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 HotStraetgyEntity.ItemListEntity.DataEntity data = videoList.get(position).getData();
-                VideoActivity.start(mActivity,data.getPlayUrl(),data.getDescription());
+                VideoActivity.start(mActivity, data.getPlayUrl(), data.getDescription());
             }
         });
 //        videoAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -106,38 +104,38 @@ public class VideoFragment extends BaseFragment<VideoPresenter> implements Video
         });
     }
 
-    private void load(int page){
+    private void load(int page) {
         L.e("load : " + page);
         mPresenter.load(page);
     }
 
     @Override
     public void loadSuccess(int page, List<HotStraetgyEntity.ItemListEntity> list) {
-        if(page == 1){
+        if (page == 1) {
             videoList.clear();
             videoAdapter.setUpFetching(false);
         }
 
         videoList.addAll(list);
 
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             videoAdapter.loadMoreEnd();
-        }else{
+        } else {
             videoAdapter.loadMoreComplete();
             currentPage = page;
         }
 
-        if(!videoList.isEmpty()){
+        if (!videoList.isEmpty()) {
             switchView.showDataView(rvVideo);
             videoAdapter.notifyDataSetChanged();
-        }else{
+        } else {
             switchView.showEmptyView();
         }
     }
 
     @Override
     public void loadFailed(final int page, String msg) {
-        if(currentPage == 1){
+        if (currentPage == 1) {
             switchView.showErrorView();
         }
         videoAdapter.loadMoreFail();

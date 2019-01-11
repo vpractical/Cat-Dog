@@ -109,3 +109,7 @@
 -keep class com.linkedin.** { *; }
 -keep class com.android.dingtalk.share.ddsharemodule.** { *; }
 -keepattributes Signature
+
+-keep class com.alibaba.** {*;}
+-keep class com.google.auto.**
+-keep class com.squareup.javapoet.**{*;}
