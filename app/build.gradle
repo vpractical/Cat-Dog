@@ -15,7 +15,8 @@ android {
         multiDexKeepProguard file("multiDexKeep.pro") //分包时，将部分包放入主dex
         ndk {
             // 设置支持的SO库架构
-            abiFilters 'armeabi'// 'x86','x86_64', 'armeabi-v7a', 'arm64-v8a'
+            // abiFilters 'armeabi' ,'x86','x86_64', 'armeabi-v7a', 'arm64-v8a'
+            abiFilters 'armeabi-v7a'
         }
         javaCompileOptions {
             annotationProcessorOptions { includeCompileClasspath = true }
@@ -56,18 +57,19 @@ android {
         }
         release {
             // 进行资源压缩
-            shrinkResources false
+            shrinkResources true
             //混淆
-            minifyEnabled false
+            minifyEnabled true
             // 进行压缩优化
-            zipAlignEnabled false
+            zipAlignEnabled true
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.production
             buildConfigField("String", "API_URL", rootProject.ext.baseUrl.releaseUrl)
             //修改apk包名
             applicationVariants.all { variant ->
                 variant.outputs.all { output ->
-                    outputFileName = "app-${variant.name}-${defaultConfig.versionName}.apk"
+                    outputFileName = "app-${variant.name}-${variant.versionName}.apk"
                 }
             }
         }

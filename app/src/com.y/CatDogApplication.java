@@ -1,6 +1,7 @@
 package com.y;
 
 import android.content.res.Configuration;
+import android.os.Debug;
 import android.support.multidex.MultiDex;
 
 import com.y.config.GlideConfig;
@@ -20,12 +21,22 @@ public class CatDogApplication extends MvpApplication {
     }
 
     private void init(){
+        //分析方法耗时
+        //启动优化等等
+        Debug.startMethodTracing(getExternalCacheDir() + "/trace3.trace");
         AppUtil.init(this);
         DiskCache.init(this);
         MultiDex.install(this);
-        UmConfig.init(this);
+//        UmConfig.init(this);
         ImageLoader.getInstance().strategy(new GlideConfig()).configure();
         Router.init(this);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                UmConfig.init(CatDogApplication.this);
+            }
+        }).start();
+        Debug.stopMethodTracing();
     }
 
     @Override
