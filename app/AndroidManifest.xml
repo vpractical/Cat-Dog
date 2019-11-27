@@ -34,6 +34,7 @@
         android:supportsRtl="true"
         android:resizeableActivity="true"
         android:theme="@style/AppTheme"
+        android:networkSecurityConfig="@xml/network_security_config"
         >
         <activity
             android:name=".mvp.activity.WelcomeActivity"
@@ -77,6 +78,7 @@
         </activity>
 
         <activity android:name=".mvp.activity.Arith1Activity" />
+        <activity android:name=".mvp.activity.Arith2Activity" />
         <activity android:name=".mvp.activity.QuickDemoActivity" />
         <activity android:name=".mvp.activity.QuickDemo2Activity" />
         <activity android:name="com.y.mvp.activity.form.FormActivity" />

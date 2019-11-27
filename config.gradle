@@ -8,7 +8,7 @@ ext{
     android = [
             applicationId     : "com.y.catdog",
             compileSdkVersion : 28,
-            minSdkVersion     : 19,
+            minSdkVersion     : 21,
             targetSdkVersion  : 28,
             versionCode       : project.VERSION_CODE as int,
             versionName       : project.VERSION_NAME,

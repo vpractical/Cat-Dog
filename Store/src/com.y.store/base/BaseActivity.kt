@@ -25,8 +25,8 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if(ev?.action == MotionEvent.ACTION_DOWN){
-            val v: View = currentFocus
-            if (KeyBoardUtil.isShouldHideKeyboard(v, ev)) {
+            val v: View? = currentFocus
+            if (v == null && KeyBoardUtil.isShouldHideKeyboard(v, ev)) {
                 KeyBoardUtil.hideSoftInput(v,mActivity)
             }
         }

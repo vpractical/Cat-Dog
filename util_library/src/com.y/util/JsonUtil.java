@@ -4,7 +4,6 @@ package com.y.util;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.JsonSyntaxException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,11 +22,11 @@ public class JsonUtil {
      * @param <T>      需要生成的bean类
      * @return 生成的bean类对象
      */
-    public static <T> T toBean(String json, Class<T> classOfT) throws JsonSyntaxException {
+    public static <T> T toBean(String json, Class<T> classOfT) {
         return JSON.parseObject(json, classOfT);
     }
 
-    public static <T> List<T> toList(String json, Class<T> classOfT) throws JsonSyntaxException {
+    public static <T> List<T> toList(String json, Class<T> classOfT) {
         return JSON.parseArray(json, classOfT);
     }
 

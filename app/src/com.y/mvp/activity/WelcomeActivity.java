@@ -62,7 +62,6 @@ public class WelcomeActivity extends BaseActivity {
                 }
             }, 2000);
 
-
             final Login login = (Login) SPUtil.getSingleObject(Key.LOGIN_KEY, Login.class);
             mainHandler.postDelayed(countdownRunnable = new Runnable() {
                 @Override
@@ -74,7 +73,7 @@ public class WelcomeActivity extends BaseActivity {
                     }
                     finish();
                 }
-            }, 20000);
+            }, 10000);
         } else {
             PermissionCat.request("应用必须权限", this, new PermissionCallback() {
                 @Override

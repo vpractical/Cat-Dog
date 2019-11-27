@@ -133,6 +133,10 @@ public class AppUtil {
         return !aliveActivities.isEmpty() && aliveActivities.lastElement() == activity;
     }
 
+    /**
+     * Calling startActivity() from outside of an Activity  context requires the
+     * FLAG_ACTIVITY_NEW_TASK flag. Is this really what you want?
+     */
     public static void start(Class<? extends Activity> activity) {
         applicationContext.startActivity(new Intent(applicationContext, activity));
     }

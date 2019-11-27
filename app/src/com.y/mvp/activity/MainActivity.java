@@ -90,7 +90,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
                 public void run() {
                     Login.exit();
                     AppUtil.finishAll();
-                    AppUtil.start(LoginActivity.class);
+                    LoginActivity.start(mActivity);
                 }
             },1000);
             return;

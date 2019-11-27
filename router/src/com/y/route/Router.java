@@ -42,7 +42,7 @@ public class Router {
     }
 
     public Router with(Context context) {
-        this.context = context.getApplicationContext();
+        this.context = context;
         return this;
     }
 

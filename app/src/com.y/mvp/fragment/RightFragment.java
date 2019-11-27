@@ -103,6 +103,7 @@ public class RightFragment extends BaseFragment {
     private void loginOut() {
         Login.exit();
         AppUtil.finishAll();
-        AppUtil.start(LoginActivity.class);
+//        AppUtil.start(LoginActivity.class);
+        LoginActivity.start(mActivity);
     }
 }

@@ -29,7 +29,9 @@
                 android:paddingBottom="12dp"
                 android:paddingTop="12dp"
                 android:scaleType="fitStart"
-                android:src="@drawable/back_white" />
+                android:src="@drawable/back_white"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
 
             <TextView
                 android:id="@+id/tv_toolbar_title"
