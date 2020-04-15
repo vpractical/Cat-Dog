@@ -101,8 +101,8 @@ public class MoreFragment extends BaseFragment<MorePresenter> {
                         Arith2Activity.start(mActivity);
                         break;
                     case 9:
-//                        BehaviorTestActivity.Companion.start(mActivity);
-                        Router.getInstance().with(mActivity).target("store/behavior").start();
+//                        Router.getInstance().with(mActivity).target("store/behavior").start();
+                        Router.getInstance().with(mActivity).target("store/behavior2").start();
                         break;
                     default:
                         break;

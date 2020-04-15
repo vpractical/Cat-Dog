@@ -3,11 +3,13 @@ package com.y.store.activity
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
+import com.y.router_annotations.Route
 import com.y.store.R
 import com.y.store.adapter.PictureAdapter
 import com.y.store.base.BaseActivity
 import kotlinx.android.synthetic.main.store_activity_behavior_test.*
 
+@Route(path = "store/behavior")
 open class BehaviorTestActivity:BaseActivity() {
 
     companion object {
